@@ -16,3 +16,7 @@ wheels/
 videos/
 *.env
 media
+
+config/settings_dev.py
+
+config/settings_prod.py
