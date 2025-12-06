@@ -14,5 +14,5 @@ wheels/
 .vscode/
 .env
 videos/
-*.env*
+*.env
 media
