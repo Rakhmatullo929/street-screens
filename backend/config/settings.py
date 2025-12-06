@@ -24,6 +24,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "secret_key")
 DEBUG = os.getenv("DEBUG", True)
 ALLOWED_HOSTS = list(filter(None, [*os.getenv("ALLOWED_HOSTS", "*").split(" ")]))
 sys.path.append(os.path.join(BASE_DIR, "apps"))
+AUTH_USER_MODEL = "users.User"
 
 
 # Application definition
@@ -167,11 +168,10 @@ REST_FRAMEWORK = {
 }
 
 SITE_ID = 1
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
+
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_SIGNUP_FIELDS = ("email", "password1", "password2")
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
 REST_AUTH = {
