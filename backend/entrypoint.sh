@@ -11,10 +11,25 @@ set -e
 # - Запуск Gunicorn
 # ============================================================================
 
+echo "=========================================="
 echo "Starting Django application..."
+echo "=========================================="
+echo "Arguments received: $@"
+echo "Number of arguments: $#"
+echo "Current directory: $(pwd)"
+echo "Python path: $(which python)"
+echo "Gunicorn path: $(which gunicorn || echo 'NOT FOUND')"
+echo "DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}"
+echo "=========================================="
 
 # Функция для ожидания готовности PostgreSQL
 wait_for_postgres() {
+    # Если переменная SKIP_DB_WAIT установлена, пропускаем ожидание
+    if [ "${SKIP_DB_WAIT:-false}" = "true" ]; then
+        echo "Skipping PostgreSQL wait (SKIP_DB_WAIT=true)"
+        return 0
+    fi
+    
     echo "Waiting for PostgreSQL to be ready..."
     
     # Получение параметров подключения из переменных окружения
@@ -22,12 +37,24 @@ wait_for_postgres() {
     PGPORT="${POSTGRES_PORT:-5432}"
     
     # Ожидание доступности PostgreSQL (максимум 30 попыток по 2 секунды = 60 секунд)
+    MAX_ATTEMPTS=30
+    ATTEMPT=0
+    
     until nc -z "$PGHOST" "$PGPORT" 2>/dev/null; do
-        echo "PostgreSQL is unavailable - sleeping..."
+        ATTEMPT=$((ATTEMPT + 1))
+        if [ $ATTEMPT -ge $MAX_ATTEMPTS ]; then
+            echo "WARNING: PostgreSQL is still unavailable after ${MAX_ATTEMPTS} attempts. Continuing anyway..."
+            break
+        fi
+        echo "PostgreSQL is unavailable - sleeping... (attempt ${ATTEMPT}/${MAX_ATTEMPTS})"
         sleep 2
     done
     
-    echo "PostgreSQL is up and running!"
+    if nc -z "$PGHOST" "$PGPORT" 2>/dev/null; then
+        echo "PostgreSQL is up and running!"
+    else
+        echo "WARNING: Could not verify PostgreSQL connection, but continuing..."
+    fi
 }
 
 # Функция для применения миграций
@@ -54,15 +81,21 @@ collect_static() {
 
 # Основная логика
 main() {
-    # Ожидание готовности PostgreSQL
+    # Ожидание готовности PostgreSQL (можно пропустить через SKIP_DB_WAIT=true)
     wait_for_postgres
     
-    # Применение миграций
-    run_migrations
+    # Применение миграций (можно пропустить через SKIP_MIGRATIONS=true)
+    if [ "${SKIP_MIGRATIONS:-false}" != "true" ]; then
+        run_migrations
+    else
+        echo "Skipping migrations (SKIP_MIGRATIONS=true)"
+    fi
     
     # Сборка статических файлов (только если не в режиме разработки)
-    if [ "${DEBUG:-False}" != "True" ]; then
+    if [ "${DEBUG:-False}" != "True" ] && [ "${SKIP_COLLECTSTATIC:-false}" != "true" ]; then
         collect_static
+    elif [ "${SKIP_COLLECTSTATIC:-false}" = "true" ]; then
+        echo "Skipping collectstatic (SKIP_COLLECTSTATIC=true)"
     fi
     
     # Создание суперпользователя (раскомментируйте если нужно)
@@ -88,36 +121,33 @@ main() {
         exit 1
     fi
     
-    echo "Starting Gunicorn with config.wsgi:application on port ${PORT}..."
+    echo "=========================================="
+    echo "Starting Gunicorn server..."
+    echo "=========================================="
+    echo "Port: ${PORT}"
+    echo "Arguments: $@"
+    echo "=========================================="
     
-    # Если команда передана через CMD, проверяем её
-    if [ $# -gt 0 ] && [ "$1" != "" ]; then
-        # Если команда начинается с "gunicorn", добавляем параметры
-        if [ "$1" = "gunicorn" ]; then
-            echo "Executing gunicorn command with port ${PORT}..."
-            exec "$@" --bind "0.0.0.0:${PORT}" \
-                --workers 4 \
-                --threads 2 \
-                --timeout 120 \
-                --access-logfile - \
-                --error-logfile - \
-                --log-level info
-        else
-            echo "Executing custom command: $@"
-            exec "$@"
-        fi
-    else
-        # Если команда не передана, запускаем gunicorn с полными параметрами
-        echo "No command provided, starting gunicorn with default settings..."
-        exec gunicorn config.wsgi:application \
-            --bind "0.0.0.0:${PORT}" \
-            --workers 4 \
-            --threads 2 \
-            --timeout 120 \
-            --access-logfile - \
-            --error-logfile - \
-            --log-level info
-    fi
+    # Всегда используем явную команду gunicorn с полными параметрами
+    # Это гарантирует, что модуль приложения будет указан правильно
+    APP_MODULE="config.wsgi:application"
+    
+    echo "Using application module: ${APP_MODULE}"
+    echo "Starting Gunicorn with command:"
+    echo "  gunicorn ${APP_MODULE} --bind 0.0.0.0:${PORT} --workers 4 --threads 2 --timeout 120"
+    echo "=========================================="
+    
+    # Запускаем gunicorn с полными параметрами
+    # Используем exec для замены процесса shell на gunicorn
+    exec gunicorn "${APP_MODULE}" \
+        --bind "0.0.0.0:${PORT}" \
+        --workers 4 \
+        --threads 2 \
+        --timeout 120 \
+        --access-logfile - \
+        --error-logfile - \
+        --log-level info \
+        --chdir /app
 }
 
 # Запуск основной функции
