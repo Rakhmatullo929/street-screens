@@ -8,7 +8,15 @@ from main.serializers.venue_type import VenueTypeSerializer, VenueTypeFilterPara
 
 
 class VenueTypeListCreateView(APIView):
+    """
+    API endpoint for listing and creating venue types.
+    GET /api/v1/main/venue-types/ - List venue types
+    POST /api/v1/main/venue-types/ - Create venue type
+    """
     def get(self, request):
+        """
+        List venue types with optional filtering, search, and sorting.
+        """
         params = VenueTypeFilterParams.check(request.GET)
 
         qs = VenueType.objects.all()
@@ -31,6 +39,9 @@ class VenueTypeListCreateView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        """
+        Create a new venue type.
+        """
         serializer = VenueTypeSerializer(data=request.data)
         if serializer.is_valid():
             obj = serializer.save()
@@ -39,11 +50,23 @@ class VenueTypeListCreateView(APIView):
 
 
 class VenueTypeDetailView(APIView):
+    """
+    API endpoint for retrieving, updating, and deleting a specific venue type.
+    GET /api/v1/main/venue-types/{id}/ - Get venue type
+    PUT /api/v1/main/venue-types/{id}/ - Update venue type
+    DELETE /api/v1/main/venue-types/{id}/ - Delete venue type
+    """
     def get(self, request, pk):
+        """
+        Retrieve a specific venue type by ID.
+        """
         obj = get_object_or_404(VenueType, pk=pk)
         return Response(VenueTypeSerializer(obj).data)
 
     def put(self, request, pk):
+        """
+        Update an existing venue type.
+        """
         obj = get_object_or_404(VenueType, pk=pk)
         serializer = VenueTypeSerializer(obj, data=request.data)
         if serializer.is_valid():
@@ -52,6 +75,9 @@ class VenueTypeDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
+        """
+        Delete a venue type.
+        """
         obj = get_object_or_404(VenueType, pk=pk)
         obj.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

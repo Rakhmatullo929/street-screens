@@ -7,16 +7,26 @@ User = get_user_model()
 
 
 class CustomRegisterSerializer(RegisterSerializer):
+    """
+    Custom registration serializer extending RegisterSerializer.
+    Adds first_name, last_name, and type_user fields.
+    """
     first_name = serializers.CharField(required=False)
     last_name = serializers.CharField(required=False)
     type_user = serializers.ChoiceField(choices=User.TYPE_USER, required=False)  # pyright: ignore
 
     def validate_email(self, email):
+        """
+        Validate email uniqueness (case-insensitive).
+        """
         if User.objects.filter(email__iexact=email).exists():
             raise serializers.ValidationError("Пользователь с таким e-mail уже зарегистрирован.")
         return super().validate_email(email)
 
     def custom_signup(self, request, user):
+        """
+        Set first_name, last_name, and type_user during user registration.
+        """
         data = self.validated_data or {}
         if isinstance(data, dict) and ("first_name" in data or "last_name" in data):
             user.first_name = data.get("first_name", "")

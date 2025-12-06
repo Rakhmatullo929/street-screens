@@ -8,6 +8,10 @@ from main.models import ScreenManager, AdsManager, AdsManagerVideo, AdsManagerIm
 
 
 class ScreenManagerSerializer(serializers.ModelSerializer):
+    """
+    Serializer for ScreenManager model.
+    Handles screen manager data with region, district, and venue types.
+    """
     region_id = serializers.IntegerField(write_only=True, required=False)
     district_id = serializers.IntegerField(write_only=True, required=False)
     venue_type_ids = serializers.ListField(
@@ -46,6 +50,9 @@ class ScreenManagerSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "created_at", "updated_at", "created_by", "updated_by"]
 
     def create(self, validated_data: Dict[str, Any]) -> ScreenManager:
+        """
+        Create screen manager with region, district, and venue types validation.
+        """
         region_id = validated_data.pop('region_id', None)
         district_id = validated_data.pop('district_id', None)
         venue_type_ids = validated_data.pop('venue_type_ids', [])
@@ -83,6 +90,9 @@ class ScreenManagerSerializer(serializers.ModelSerializer):
         return instance
 
     def update(self, instance: ScreenManager, validated_data: Dict[str, Any]) -> ScreenManager:
+        """
+        Update screen manager with region, district, and venue types validation.
+        """
         region_id = validated_data.pop('region_id', None)
         district_id = validated_data.pop('district_id', None)
         venue_type_ids = validated_data.pop('venue_type_ids', None)
@@ -131,6 +141,10 @@ class ScreenManagerSerializer(serializers.ModelSerializer):
 
 
 class AdsManagerSerializer(serializers.ModelSerializer):
+    """
+    Serializer for AdsManager model.
+    Handles ads campaign data with region, district, interests, venue types, and content files.
+    """
     status_display = serializers.CharField(source='get_status_display', read_only=True)
     schedule_coverage_percentage = serializers.SerializerMethodField()
     is_active = serializers.SerializerMethodField()
@@ -210,12 +224,21 @@ class AdsManagerSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "created_at", "updated_at", "created_by", "updated_by"]
     
     def get_schedule_coverage_percentage(self, obj):
+        """
+        Get schedule coverage percentage for the ads manager.
+        """
         return obj.get_schedule_coverage_percentage()
     
     def get_is_active(self, obj):
+        """
+        Check if ads manager is currently active.
+        """
         return obj.is_active()
     
     def get_videos(self, obj):
+        """
+        Get list of videos associated with the ads manager.
+        """
         return [
             {
                 'id': video.id,
@@ -229,6 +252,9 @@ class AdsManagerSerializer(serializers.ModelSerializer):
         ]
     
     def get_images(self, obj):
+        """
+        Get list of images associated with the ads manager.
+        """
         return [
             {
                 'id': image.id,
@@ -244,6 +270,9 @@ class AdsManagerSerializer(serializers.ModelSerializer):
         ]
     
     def create(self, validated_data: Dict[str, Any]) -> AdsManager:
+        """
+        Create ads manager with region, district, interests, venue types, and content files.
+        """
         region_id = validated_data.pop('region_id', None)
         district_id = validated_data.pop('district_id', None)
         interest_ids = validated_data.pop('interest_ids', [])
@@ -317,6 +346,9 @@ class AdsManagerSerializer(serializers.ModelSerializer):
         return instance
     
     def update(self, instance: AdsManager, validated_data: Dict[str, Any]) -> AdsManager:
+        """
+        Update ads manager with region, district, interests, venue types, and content files.
+        """
         region_id = validated_data.pop('region_id', None)
         district_id = validated_data.pop('district_id', None)
         interest_ids = validated_data.pop('interest_ids', None)
@@ -408,6 +440,10 @@ class AdsManagerSerializer(serializers.ModelSerializer):
 
 
 class AdsManagerVideoSerializer(serializers.ModelSerializer):
+    """
+    Serializer for AdsManagerVideo model.
+    Handles video data for ads campaigns.
+    """
     ads_manager_name = serializers.CharField(source='ads_manager.campaign_name', read_only=True)
     ads_manager_status = serializers.CharField(source='ads_manager.status', read_only=True)
     video_url = serializers.SerializerMethodField()
@@ -439,15 +475,25 @@ class AdsManagerVideoSerializer(serializers.ModelSerializer):
         return None
     
     def create(self, validated_data: Dict[str, Any]) -> AdsManagerVideo:
+        """
+        Create video and set created_by to current user.
+        """
         validated_data["created_by"] = self.context["request"].user
         return super().create(validated_data)
     
     def update(self, instance: AdsManagerVideo, validated_data: Dict[str, Any]) -> AdsManagerVideo:
+        """
+        Update video and set updated_by to current user.
+        """
         validated_data["updated_by"] = self.context["request"].user
         return super().update(instance, validated_data)
 
 
 class AdsManagerImageSerializer(serializers.ModelSerializer):
+    """
+    Serializer for AdsManagerImage model.
+    Handles image data for ads campaigns.
+    """
     ads_manager_name = serializers.CharField(source='ads_manager.campaign_name', read_only=True)
     ads_manager_status = serializers.CharField(source='ads_manager.status', read_only=True)
     
@@ -472,16 +518,26 @@ class AdsManagerImageSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "created_at", "updated_at", "created_by", "updated_by", "file_size", "width", "height"]
     
     def create(self, validated_data: Dict[str, Any]) -> AdsManagerImage:
+        """
+        Create image and set created_by to current user.
+        """
         validated_data["created_by"] = self.context["request"].user
         return super().create(validated_data)
     
     def update(self, instance: AdsManagerImage, validated_data: Dict[str, Any]) -> AdsManagerImage:
+        """
+        Update image and set updated_by to current user.
+        """
         validated_data["updated_by"] = self.context["request"].user
         return super().update(instance, validated_data)
 
 
 
 class SummarySerializer(serializers.ModelSerializer):
+    """
+    Serializer for ads manager summary/efficiency forecast request.
+    Validates filter parameters for summary calculation.
+    """
     interests = serializers.PrimaryKeyRelatedField(queryset=Interest.objects.all(), many=True)
 
     class Meta:

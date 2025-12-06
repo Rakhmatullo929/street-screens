@@ -18,7 +18,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
-
+OUTSCRAPER_API_KEY = os.getenv("OUTSCRAPER_API_KEY", "")
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "secret_key")
 DEBUG = os.getenv("DEBUG", True)

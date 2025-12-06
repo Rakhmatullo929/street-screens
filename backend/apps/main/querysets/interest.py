@@ -2,7 +2,13 @@ from django.db import models
 from django.db.models import Q
 
 class InterestQuerySet(models.QuerySet):
+    """
+    Custom queryset for Interest model with filtering and sorting capabilities.
+    """
     def list(self, sort_by, search_field=None, search_value=None, is_active=None):
+        """
+        Filter and sort interests by search field/value and sort criteria.
+        """
         qs = self
         if search_field and search_value:
             qs = qs.filter(Q(**{f"{search_field}__istartswith": search_value}))
