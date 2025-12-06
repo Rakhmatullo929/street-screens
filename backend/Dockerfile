@@ -65,18 +65,17 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     DJANGO_SETTINGS_MODULE=config.settings
 
-# Открытие порта (Digital Ocean App Platform использует переменную PORT)
-EXPOSE 8000
+# Открытие порта (Digital Ocean App Platform использует переменную PORT, по умолчанию 8080)
+EXPOSE 8080
 
-# Health check (использует переменную PORT или порт по умолчанию)
+# Health check (использует переменную PORT или порт по умолчанию 8080)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD sh -c 'PORT=${PORT:-8000}; curl -f http://localhost:${PORT}/health/ || exit 1'
+    CMD sh -c 'PORT=${PORT:-8080}; curl -f http://localhost:${PORT}/health/ || exit 1'
 
 # Запуск через entrypoint
 ENTRYPOINT ["/app/entrypoint.sh"]
 
-# Команда по умолчанию (будет обработана в entrypoint.sh)
-# entrypoint.sh автоматически использует переменную PORT если она установлена
-# Пустой CMD означает, что entrypoint.sh запустит gunicorn сам
-CMD []
+# Команда по умолчанию - entrypoint.sh автоматически запустит gunicorn
+# Если команда не передана, entrypoint.sh использует встроенную команду gunicorn
+CMD ["gunicorn", "config.wsgi:application"]
 

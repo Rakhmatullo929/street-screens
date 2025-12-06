@@ -71,8 +71,8 @@ main() {
     echo "Starting Gunicorn server..."
     
     # Если переменная PORT установлена (например, в Digital Ocean App Platform),
-    # используем её, иначе используем порт по умолчанию 8000
-    PORT="${PORT:-8000}"
+    # используем её, иначе используем порт по умолчанию 8080 (Digital Ocean стандарт)
+    PORT="${PORT:-8080}"
     echo "Using port: ${PORT}"
     
     # Проверка, что мы в правильной директории
@@ -90,8 +90,25 @@ main() {
     
     echo "Starting Gunicorn with config.wsgi:application on port ${PORT}..."
     
-    # Если команда передана через CMD, используем её, иначе запускаем gunicorn
-    if [ $# -eq 0 ] || [ "$1" = "" ]; then
+    # Если команда передана через CMD, проверяем её
+    if [ $# -gt 0 ] && [ "$1" != "" ]; then
+        # Если команда начинается с "gunicorn", добавляем параметры
+        if [ "$1" = "gunicorn" ]; then
+            echo "Executing gunicorn command with port ${PORT}..."
+            exec "$@" --bind "0.0.0.0:${PORT}" \
+                --workers 4 \
+                --threads 2 \
+                --timeout 120 \
+                --access-logfile - \
+                --error-logfile - \
+                --log-level info
+        else
+            echo "Executing custom command: $@"
+            exec "$@"
+        fi
+    else
+        # Если команда не передана, запускаем gunicorn с полными параметрами
+        echo "No command provided, starting gunicorn with default settings..."
         exec gunicorn config.wsgi:application \
             --bind "0.0.0.0:${PORT}" \
             --workers 4 \
@@ -100,9 +117,6 @@ main() {
             --access-logfile - \
             --error-logfile - \
             --log-level info
-    else
-        echo "Executing custom command: $@"
-        exec "$@"
     fi
 }
 
