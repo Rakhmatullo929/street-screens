@@ -49,6 +49,10 @@ WORKDIR /app
 # Копирование кода приложения
 COPY --chown=django:django . /app/
 
+# Entrypoint скрипт (копируем ДО переключения пользователя для правильных прав)
+COPY --chown=django:django entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 # Создание директорий для статики и медиа
 RUN mkdir -p /app/static /app/media && \
     chown -R django:django /app/static /app/media
@@ -61,20 +65,18 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     DJANGO_SETTINGS_MODULE=config.settings
 
-# Открытие порта
+# Открытие порта (Digital Ocean App Platform использует переменную PORT)
 EXPOSE 8000
 
-# Health check
+# Health check (использует переменную PORT или порт по умолчанию)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD curl -f http://localhost:8000/health/ || exit 1
-
-# Entrypoint скрипт
-COPY --chown=django:django entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
+    CMD sh -c 'PORT=${PORT:-8000}; curl -f http://localhost:${PORT}/health/ || exit 1'
 
 # Запуск через entrypoint
 ENTRYPOINT ["/app/entrypoint.sh"]
 
-# Команда по умолчанию (будет переопределена в entrypoint.sh)
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4", "--threads", "2", "--timeout", "120", "--access-logfile", "-", "--error-logfile", "-"]
+# Команда по умолчанию (будет обработана в entrypoint.sh)
+# entrypoint.sh автоматически использует переменную PORT если она установлена
+# Пустой CMD означает, что entrypoint.sh запустит gunicorn сам
+CMD []
 
