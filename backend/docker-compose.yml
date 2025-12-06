@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database Service
+  db:
+    image: postgres:15-alpine
+    container_name: street-screens-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-street_screens}
+      POSTGRES_USER: ${POSTGRES_USER:-street_screens_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-street_screens_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-street_screens_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - street-screens-network
+
+  # Django Application Service
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: street-screens-web
+    command: >
+      gunicorn config.wsgi:application
+      --bind 0.0.0.0:8000
+      --workers 4
+      --threads 2
+      --timeout 120
+      --access-logfile -
+      --error-logfile -
+    volumes:
+      # Монтируем код для разработки (можно закомментировать в production)
+      - .:/app
+      # Медиа файлы
+      - media_files:/app/media
+      # Статические файлы (опционально, если не используем WhiteNoise)
+      - static_files:/app/static
+    ports:
+      - "${DJANGO_PORT:-8000}:8000"
+    env_file:
+      - .env
+    environment:
+      # Переопределение настроек БД для docker-compose
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-street_screens}
+      POSTGRES_USER: ${POSTGRES_USER:-street_screens_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-street_screens_password}
+      # Django настройки
+      DEBUG: ${DEBUG:-False}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost 127.0.0.1}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - street-screens-network
+
+volumes:
+  postgres_data:
+    driver: local
+  media_files:
+    driver: local
+  static_files:
+    driver: local
+
+networks:
+  street-screens-network:
+    driver: bridge
+
