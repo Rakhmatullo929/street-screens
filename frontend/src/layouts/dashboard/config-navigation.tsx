@@ -108,22 +108,12 @@ export function useNavData() {
         subheader: 'DOOH Advertising',
         items: [
           {
-            title: 'Ads Manager',
+            title: 'StreetScreen Manager',
             path: paths.dashboard.adsManager,
             icon: DOOH_ICONS.adsManager,
           },
-          
-          
-          
-          
-          
-          
-          
         ],
       },
-
-      
-      
       {
         subheader: 'Screen Network',
         items: [

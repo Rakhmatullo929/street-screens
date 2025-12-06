@@ -98,8 +98,8 @@ export default function AccountGeneral() {
             >
               <RHFTextField name="email" label="Email Address" disabled />
               <RHFSelect name="type_user" label="User Type">
-                <MenuItem value={USER_TYPES.ADS_CLIENT}>Ads Client</MenuItem>
-                <MenuItem value={USER_TYPES.ADS_MANAGER}>Ads Manager</MenuItem>
+                <MenuItem value={USER_TYPES.ADS_CLIENT}>StreetScreen Client</MenuItem>
+                <MenuItem value={USER_TYPES.ADS_MANAGER}>StreetScreen Manager</MenuItem>
               </RHFSelect>
             </Box>
 
