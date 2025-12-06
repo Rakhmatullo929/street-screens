@@ -34,7 +34,9 @@ export default function AccountChangePassword() {
         'New password must be different than old password',
         (value, { parent }) => value !== parent.oldPassword
       ),
-    confirmNewPassword: Yup.string().oneOf([Yup.ref('newPassword')], 'Passwords must match'),
+    confirmNewPassword: Yup.string()
+      .required('Confirm New Password is required')
+      .oneOf([Yup.ref('newPassword')], 'Passwords must match'),
   });
 
   const defaultValues = {

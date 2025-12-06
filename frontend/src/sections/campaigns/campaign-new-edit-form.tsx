@@ -87,8 +87,8 @@ interface FormValues {
   campaignName: string;
   budget: number;
   currency: string;
-  startDate: Date | null;
-  endDate: Date | null;
+  startDate: Date;
+  endDate: Date;
   geoTarget: {
     region: number | null;
     district: number | null;
@@ -97,7 +97,7 @@ interface FormValues {
   venueTypes: number[];
   ageRange: [number, number];
   schedule: WeeklySchedule;
-  
+
   displayDuration?: 5 | 10 | 15;
   contentType?: 'video' | 'image';
   contentFiles?: File[];
@@ -110,11 +110,11 @@ interface CampaignNewEditFormProps {
 
 const getMediaUrl = (mediaPath: string | null) => {
   if (!mediaPath || !HOST_API) return '';
-  
+
   // If already a full URL, return as is
   if (mediaPath.startsWith('http')) return mediaPath;
-  
-  
+
+
   const cleanPath = mediaPath.startsWith('/') ? mediaPath : `/${mediaPath}`;
   return `${HOST_API}${cleanPath}`;
 };
@@ -126,12 +126,12 @@ export default function CampaignNewEditForm({
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  
+
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
-  
+
   const CampaignSchema = useMemo(() => {
-    
+
     const hasExistingVideos = currentCampaign?.videos && currentCampaign.videos.length > 0;
     const hasExistingImages = currentCampaign?.images && currentCampaign.images.length > 0;
 
@@ -167,11 +167,11 @@ export default function CampaignNewEditForm({
         const { contentType } = parent;
 
         if (contentType === 'video' || contentType === 'image') {
-          
+
           const hasNewFiles = value && value.length > 0;
           const hasExistingContent = contentType === 'video' ? hasExistingVideos : hasExistingImages;
-          
-          
+
+
           if (!hasNewFiles && !hasExistingContent) {
             return createError({ message: `Upload ${contentType === 'video' ? 'video' : 'image'}` });
           }
@@ -197,17 +197,17 @@ export default function CampaignNewEditForm({
       },
       interests: currentCampaign?.interests?.map(interest => interest.name) || [],
       venueTypes: currentCampaign?.venue_types?.map(venue => venue.id) || [],
-      ageRange: [18, 65] as [number, number], 
+      ageRange: [18, 65] as [number, number],
       schedule: convertBackendScheduleToCalendar(currentCampaign?.schedule),
-      displayDuration: 15 as const, 
-      contentType: 'video' as const, 
-      contentFiles: [], 
+      displayDuration: 15 as const,
+      contentType: 'video' as const,
+      contentFiles: [],
     }),
     [currentCampaign]
   );
 
   const methods = useForm<FormValues>({
-    resolver: yupResolver(CampaignSchema),
+    resolver: yupResolver(CampaignSchema) as any,
     defaultValues,
   });
 
@@ -222,37 +222,37 @@ export default function CampaignNewEditForm({
 
   const values = watch();
 
-  
+
   const hasExistingVideos = currentCampaign?.videos && currentCampaign.videos.length > 0;
   const hasExistingImages = currentCampaign?.images && currentCampaign.images.length > 0;
   const hasNewFiles = values.contentFiles && values.contentFiles.length > 0;
 
-  
+
   const hasRelevantContent = values.contentType === 'video'
     ? (hasNewFiles || hasExistingVideos)
     : (hasNewFiles || hasExistingImages);
 
   const hasAnyContent = hasNewFiles || hasExistingVideos || hasExistingImages;
 
-  
+
   const shouldShowExistingVideo = values.contentType === 'video' && hasExistingVideos && currentCampaign?.videos?.[0] && !hasNewFiles;
   const shouldShowNewVideo = values.contentType === 'video' && hasNewFiles && values.contentFiles?.[0];
 
-  
+
   const shouldShowExistingImages = values.contentType === 'image' && hasExistingImages && currentCampaign?.images && currentCampaign.images.length > 0 && !hasNewFiles;
   const shouldShowNewImages = values.contentType === 'image' && hasNewFiles && values.contentFiles && values.contentFiles.length > 0;
 
-  
+
   useEffect(() => {
     setValue('contentType', 'video');
   }, [setValue]);
 
-  
+
   useEffect(() => {
     reset(defaultValues);
   }, [reset, defaultValues]);
 
-  
+
   useEffect(() => {
     if (currentCampaign) {
       const scheduleValue = convertBackendScheduleToCalendar(currentCampaign.schedule);
@@ -260,15 +260,15 @@ export default function CampaignNewEditForm({
     }
   }, [currentCampaign, setValue]);
 
-  
+
   const { regions, districts } = useRegionDistrictOptions(values.geoTarget.region);
 
-  
+
   const { data: interestsData } = useApiQuery<Array<{ id: number; name: string; slug: string }>>({
     url: API_ENDPOINTS.interest.list,
   });
 
-  
+
   const { data: venueTypesData } = useApiQuery<Array<{ id: number; name: string; slug: string; is_active: boolean }>>({
     url: API_ENDPOINTS.venueType.list,
     params: {
@@ -277,7 +277,7 @@ export default function CampaignNewEditForm({
     },
   });
 
-  
+
   const availableInterests = useMemo(() =>
     interestsData?.map(interest => interest.name) || [],
     [interestsData]
@@ -288,8 +288,8 @@ export default function CampaignNewEditForm({
     [venueTypesData]
   );
 
-  
-  const interestIds = useMemo(() => 
+
+  const interestIds = useMemo(() =>
     values.interests
       .map(interestName => interestsData?.find(interest => interest.name === interestName)?.id)
       .filter(id => id !== undefined) as number[],
@@ -308,7 +308,7 @@ export default function CampaignNewEditForm({
     },
   });
 
-  
+
   const forecast = useMemo(() => {
     const cpm = summary.data?.cpm || 0;
     const impressions = Math.floor((values.budget / cpm) * 1000);
@@ -321,7 +321,7 @@ export default function CampaignNewEditForm({
     };
   }, [values.budget, summary.data?.screens_count, summary.data?.cpm]);
 
-  
+
   const { mutate: createCampaign, loading: createLoading } = useApiMutation<IAdsManager, any>({
     url: API_ENDPOINTS.adsManager.create,
     method: 'POST',
@@ -335,7 +335,7 @@ export default function CampaignNewEditForm({
     },
   });
 
-  
+
   const { mutate: updateCampaign, loading: updateLoading } = useApiMutation<IAdsManager, any>({
     url: API_ENDPOINTS.adsManager.update(currentCampaign?.id || ''),
     method: 'PUT',
@@ -349,7 +349,7 @@ export default function CampaignNewEditForm({
     },
   });
 
-  
+
   const selectedRegion = useMemo(() =>
     regions.find(r => r.value === values.geoTarget.region),
     [regions, values.geoTarget.region]
@@ -360,7 +360,7 @@ export default function CampaignNewEditForm({
     [districts, values.geoTarget.district]
   );
 
-  
+
   const handleDropContentFiles = useCallback((acceptedFiles: File[]) => {
     setValue('contentFiles', acceptedFiles, { shouldValidate: true });
   }, [setValue]);
@@ -376,23 +376,23 @@ export default function CampaignNewEditForm({
   const onSubmit = useCallback(
     async (data: FormValues) => {
       try {
-        
+
         const scheduleSlots = Object.values(data.schedule).filter(Boolean).length;
         const scheduleCoverage = ((scheduleSlots / (7 * 24)) * 100).toFixed(1);
 
-        
-        
-        
-        
+
+
+
+
         const transformSchedule = (schedule: WeeklySchedule): { [day: string]: number[] } => {
           const transformedSchedule: { [day: string]: number[] } = {};
 
-          
+
           [0, 1, 2, 3, 4, 5, 6].forEach(day => {
             transformedSchedule[day.toString()] = [];
           });
 
-          
+
           Object.entries(schedule).forEach(([key, isSelected]) => {
             if (isSelected && key.includes('-')) {
               const [day, hour] = key.split('-').map(Number);
@@ -405,7 +405,7 @@ export default function CampaignNewEditForm({
             }
           });
 
-          
+
           Object.keys(transformedSchedule).forEach(day => {
             transformedSchedule[day].sort((a, b) => a - b);
           });
@@ -415,19 +415,19 @@ export default function CampaignNewEditForm({
 
         const transformedSchedule = transformSchedule(data.schedule);
 
-        
+
         const formInterestIds = data.interests
           .map(interestName => interestsData?.find(interest => interest.name === interestName)?.id)
           .filter(id => id !== undefined) as number[];
 
-        
+
         const venueTypeIds = data.venueTypes;
 
-        
+
         let payload: IAdsManagerCreateUpdate | FormData;
 
         if (data.contentFiles && data.contentFiles.length > 0) {
-          
+
           const formData = new FormData();
           formData.append('campaign_name', data.campaignName);
           formData.append('budget', data.budget.toString());
@@ -458,25 +458,25 @@ export default function CampaignNewEditForm({
             formData.append('display_duration', data.displayDuration.toString());
           }
 
-          
+
           data.contentFiles.forEach((file, index) => {
             formData.append(`content_files`, file);
           });
 
           payload = formData;
         } else {
-          
+
           payload = {
             campaign_name: data.campaignName,
-          budget: data.budget,
-          currency: data.currency,
+            budget: data.budget,
+            currency: data.currency,
             start_date: data.startDate?.toISOString() || '',
             end_date: data.endDate?.toISOString() || '',
             region_id: data.geoTarget.region || undefined,
             district_id: data.geoTarget.district || undefined,
             interest_ids: formInterestIds,
             venue_type_ids: venueTypeIds,
-          schedule: transformedSchedule,
+            schedule: transformedSchedule,
             content_type: data.contentType,
             display_duration: data.displayDuration,
           };
@@ -503,7 +503,7 @@ export default function CampaignNewEditForm({
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {}
+        { }
         {Object.keys(errors).length > 0 && (
           <Alert severity="error">
             <Typography variant="subtitle2" gutterBottom>
@@ -658,10 +658,10 @@ export default function CampaignNewEditForm({
                         )}
                       />
 
-                      {}
+                      { }
                       {values.contentType === 'video' ? (
                         <>
-                          {}
+                          { }
                           {shouldShowExistingVideo && (
                             <Box
                               sx={{
@@ -673,7 +673,7 @@ export default function CampaignNewEditForm({
                               }}
                             >
                               <Stack spacing={2}>
-                                {}
+                                { }
                                 <Stack direction="row" alignItems="center" spacing={2}>
                                   <Iconify
                                     icon="solar:video-library-bold"
@@ -700,7 +700,7 @@ export default function CampaignNewEditForm({
                                   />
                                 </Stack>
 
-                                {}
+                                { }
                                 {currentCampaign.videos?.[0]?.video && (
                                   <Box
                                     sx={{
@@ -729,7 +729,7 @@ export default function CampaignNewEditForm({
                             </Box>
                           )}
 
-                          {}
+                          { }
                           {shouldShowNewVideo && (
                             <Box
                               sx={{
@@ -741,7 +741,7 @@ export default function CampaignNewEditForm({
                               }}
                             >
                               <Stack spacing={2}>
-                                {}
+                                { }
                                 <Stack direction="row" alignItems="center" spacing={2}>
                                   <Iconify
                                     icon="solar:video-library-bold"
@@ -767,7 +767,7 @@ export default function CampaignNewEditForm({
                                   </Button>
                                 </Stack>
 
-                                {}
+                                { }
                                 <Box
                                   sx={{
                                     display: 'flex',
@@ -793,25 +793,25 @@ export default function CampaignNewEditForm({
                             </Box>
                           )}
 
-                          {}
+                          { }
                           {!shouldShowExistingVideo && !shouldShowNewVideo && (
-                      <RHFUpload
-                        name="contentFiles"
-                        multiple={false}
-                              maxSize={52428800} 
+                            <RHFUpload
+                              name="contentFiles"
+                              multiple={false}
+                              maxSize={52428800}
                               accept={{ 'video/*': [] }}
                               helperText="MP4, MOV, AVI до 50MB. Только один видео файл"
-                        onDrop={handleDropContentFiles}
-                        onRemove={handleRemoveContentFile}
-                        onRemoveAll={handleRemoveAllContentFiles}
-                        sx={{ minHeight: 100 }}
+                              onDrop={handleDropContentFiles}
+                              onRemove={handleRemoveContentFile}
+                              onRemoveAll={handleRemoveAllContentFiles}
+                              sx={{ minHeight: 100 }}
                             />
                           )}
                         </>
                       ) : (
-                        
+
                         <>
-                          {}
+                          { }
                           {shouldShowExistingImages && (
                             <Box
                               sx={{
@@ -823,7 +823,7 @@ export default function CampaignNewEditForm({
                               }}
                             >
                               <Stack spacing={2}>
-                                {}
+                                { }
                                 <Stack direction="row" alignItems="center" spacing={2}>
                                   <Iconify
                                     icon="solar:image-bold"
@@ -847,7 +847,7 @@ export default function CampaignNewEditForm({
                                   />
                                 </Stack>
 
-                                {}
+                                { }
                                 <Box
                                   sx={{
                                     display: 'grid',
@@ -895,14 +895,14 @@ export default function CampaignNewEditForm({
                                   ))}
                                 </Box>
 
-                                {}
+                                { }
                                 <Button
                                   fullWidth
                                   variant="outlined"
                                   color="primary"
                                   startIcon={<Iconify icon="solar:refresh-bold" />}
                                   onClick={() => {
-                                    
+
                                     setValue('contentFiles', []);
                                   }}
                                 >
@@ -912,7 +912,7 @@ export default function CampaignNewEditForm({
                             </Box>
                           )}
 
-                          {}
+                          { }
                           {shouldShowNewImages && (
                             <Box
                               sx={{
@@ -924,7 +924,7 @@ export default function CampaignNewEditForm({
                               }}
                             >
                               <Stack spacing={2}>
-                                {}
+                                { }
                                 <Stack direction="row" alignItems="center" spacing={2}>
                                   <Iconify
                                     icon="solar:image-bold"
@@ -950,7 +950,7 @@ export default function CampaignNewEditForm({
                                   </Button>
                                 </Stack>
 
-                                {}
+                                { }
                                 <Box
                                   sx={{
                                     display: 'grid',
@@ -987,12 +987,12 @@ export default function CampaignNewEditForm({
                             </Box>
                           )}
 
-                          {}
+                          { }
                           {!shouldShowExistingImages && !shouldShowNewImages && (
                             <RHFUpload
                               name="contentFiles"
                               multiple
-                              maxSize={10485760} 
+                              maxSize={10485760}
                               accept={{ 'image/*': [] }}
                               helperText="JPG, PNG, GIF до 10MB. Можно загрузить несколько изображений"
                               onDrop={handleDropContentFiles}
@@ -1008,7 +1008,7 @@ export default function CampaignNewEditForm({
                 </Grid>
               </Grid>
 
-              {}
+              { }
               <Card sx={{ p: 3 }}>
                 <Stack spacing={3}>
                   <Stack direction="row" alignItems="center" spacing={1}>
@@ -1016,7 +1016,7 @@ export default function CampaignNewEditForm({
                     <Typography variant="h6">Геотаргетинг</Typography>
                   </Stack>
 
-                  {}
+                  { }
                   <RegionDistrictSelect
                     regionFieldName="geoTarget.region"
                     districtFieldName="geoTarget.district"
@@ -1048,10 +1048,10 @@ export default function CampaignNewEditForm({
                 </Stack>
               </Card>
 
-              {}
+              { }
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
-                  {}
+                  { }
                   <Card sx={{ p: 3 }}>
                     <Stack spacing={3}>
                       <Stack direction="row" alignItems="center" spacing={1}>
@@ -1087,7 +1087,7 @@ export default function CampaignNewEditForm({
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                  {}
+                  { }
                   <Card sx={{ p: 3, position: 'relative' }}>
                     <Stack spacing={3}>
                       <Stack direction="row" alignItems="center" spacing={1}>
@@ -1167,9 +1167,9 @@ export default function CampaignNewEditForm({
                 </Grid>
               </Grid>
 
-              {}
+              { }
               <Grid container spacing={3}>
-                {}
+                { }
                 <Grid item xs={12} md={6}>
                   <Card sx={{ p: 2.5 }}>
                     <Stack spacing={2}>
@@ -1205,7 +1205,7 @@ export default function CampaignNewEditForm({
                   </Card>
                 </Grid>
 
-                {}
+                { }
                 <Grid item xs={12} md={6}>
                   <Card sx={{ p: 2.5 }}>
                     <Stack spacing={2}>
@@ -1226,7 +1226,7 @@ export default function CampaignNewEditForm({
                         ChipProps={{ size: 'small' }}
                       />
 
-                      {}
+                      { }
                       <Grid container spacing={1}>
                         {availableVenueTypes.map((venue) => {
                           const isSelected = values.venueTypes.includes(venue.id);
@@ -1280,9 +1280,9 @@ export default function CampaignNewEditForm({
             </Stack>
           </Grid>
 
-          {}
+          { }
           <Grid item xs={12} md={4}>
-            {}
+            { }
             <Box
               sx={{
                 position: { xs: 'static', md: 'sticky' },
@@ -1337,7 +1337,7 @@ export default function CampaignNewEditForm({
                     }}
                   />
 
-                  {}
+                  { }
                   <Box
                     sx={{
                       p: 2.5,
@@ -1388,7 +1388,7 @@ export default function CampaignNewEditForm({
           </Grid>
         </Grid>
 
-        {}
+        { }
         <Controller
           name="schedule"
           control={control}
@@ -1488,7 +1488,7 @@ export default function CampaignNewEditForm({
           )}
         />
 
-        {}
+        { }
         <Fab
           color="primary"
           aria-label="open calendar"
@@ -1507,7 +1507,7 @@ export default function CampaignNewEditForm({
           <Iconify icon="solar:calendar-bold-duotone" width={24} />
         </Fab>
 
-        {}
+        { }
         <Card sx={{ p: 3 }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Button
