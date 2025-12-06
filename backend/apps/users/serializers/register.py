@@ -11,6 +11,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     Custom registration serializer extending RegisterSerializer.
     Adds first_name, last_name, and type_user fields.
     """
+    username = None
     first_name = serializers.CharField(required=False)
     last_name = serializers.CharField(required=False)
     type_user = serializers.ChoiceField(choices=User.TYPE_USER, required=False)  # pyright: ignore
