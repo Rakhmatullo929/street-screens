@@ -1,0 +1,109 @@
+- model: users.User
+  pk: 1
+  fields:
+    email: admin@gmail.com
+    first_name: Admin
+    last_name: Adminov
+    is_superuser: true
+    is_staff: true
+    date_joined: 2025-01-01T00:00:00+00
+    password: pbkdf2_sha256$120000$Q3ICPM6omVjp$liGZrVdJWPLpkne0vjBLnJr4S+v49AoVABreMeAwNBU= # password
+
+- model: users.User
+  pk: 2
+  fields:
+    email: umid.tashkent@uztelecom.uz
+    first_name: Umid
+    last_name: Karimov
+    is_superuser: false
+    is_staff: true
+    date_joined: 2024-06-15T08:30:00+00
+    password: pbkdf2_sha256$120000$Q3ICPM6omVjp$liGZrVdJWPLpkne0vjBLnJr4S+v49AoVABreMeAwNBU= # password
+
+- model: users.User
+  pk: 3
+  fields:
+    email: aziza.samarkand@beeline.uz
+    first_name: Aziza
+    last_name: Rahimova
+    is_superuser: false
+    is_staff: false
+    date_joined: 2024-08-20T10:15:00+00
+    password: pbkdf2_sha256$120000$Q3ICPM6omVjp$liGZrVdJWPLpkne0vjBLnJr4S+v49AoVABreMeAwNBU= # password
+
+- model: users.User
+  pk: 4
+  fields:
+    email: rustam.bukhara@mobiuz.uz
+    first_name: Rustam
+    last_name: Toshmatov
+    is_superuser: false
+    is_staff: false
+    date_joined: 2024-09-10T14:45:00+00
+    password: pbkdf2_sha256$120000$Q3ICPM6omVjp$liGZrVdJWPLpkne0vjBLnJr4S+v49AoVABreMeAwNBU= # password
+
+- model: users.User
+  pk: 5
+  fields:
+    email: nilufar.andijan@uzmobile.uz
+    first_name: Nilufar
+    last_name: Usmanova
+    is_superuser: false
+    is_staff: false
+    date_joined: 2024-10-05T09:20:00+00
+    password: pbkdf2_sha256$120000$Q3ICPM6omVjp$liGZrVdJWPLpkne0vjBLnJr4S+v49AoVABreMeAwNBU= # password
+
+- model: users.User
+  pk: 6
+  fields:
+    email: shahzod.namangan@perfectum.uz
+    first_name: Shahzod
+    last_name: Abdullaev
+    is_superuser: false
+    is_staff: false
+    date_joined: 2024-11-12T16:30:00+00
+    password: pbkdf2_sha256$120000$Q3ICPM6omVjp$liGZrVdJWPLpkne0vjBLnJr4S+v49AoVABreMeAwNBU= # password
+
+- model: users.User
+  pk: 7
+  fields:
+    email: dilnoza.fergana@uztelecom.uz
+    first_name: Dilnoza
+    last_name: Mirzaeva
+    is_superuser: false
+    is_staff: false
+    date_joined: 2024-12-01T11:00:00+00
+    password: pbkdf2_sha256$120000$Q3ICPM6omVjp$liGZrVdJWPLpkne0vjBLnJr4S+v49AoVABreMeAwNBU= # password
+
+- model: users.User
+  pk: 8
+  fields:
+    email: jahongir.urgench@beeline.uz
+    first_name: Jahongir
+    last_name: Khodjaev
+    is_superuser: false
+    is_staff: false
+    date_joined: 2024-12-15T13:25:00+00
+    password: pbkdf2_sha256$120000$Q3ICPM6omVjp$liGZrVdJWPLpkne0vjBLnJr4S+v49AoVABreMeAwNBU= # password
+
+- model: users.User
+  pk: 9
+  fields:
+    email: madina.nukus@mobiuz.uz
+    first_name: Madina
+    last_name: Niyazova
+    is_superuser: false
+    is_staff: false
+    date_joined: 2024-12-20T15:40:00+00
+    password: pbkdf2_sha256$120000$Q3ICPM6omVjp$liGZrVdJWPLpkne0vjBLnJr4S+v49AoVABreMeAwNBU= # password
+
+- model: users.User
+  pk: 10
+  fields:
+    email: bobur.kokand@uzmobile.uz
+    first_name: Bobur
+    last_name: Saidov
+    is_superuser: false
+    is_staff: false
+    date_joined: 2024-12-25T12:10:00+00
+    password: pbkdf2_sha256$120000$Q3ICPM6omVjp$liGZrVdJWPLpkne0vjBLnJr4S+v49AoVABreMeAwNBU= # password

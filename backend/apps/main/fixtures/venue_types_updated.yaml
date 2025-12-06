@@ -1,0 +1,100 @@
+# Updated Venue Types fixtures
+- model: main.VenueType
+  pk: 1
+  fields:
+    name: "Shopping Centers"
+    slug: "shopping-centers"
+    description: "Retail shopping centers and malls"
+    is_active: true
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.VenueType
+  pk: 2
+  fields:
+    name: "Streets and Roads"
+    slug: "streets-and-roads"
+    description: "Public streets and roadways"
+    is_active: true
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.VenueType
+  pk: 3
+  fields:
+    name: "Transport Hubs"
+    slug: "transport-hubs"
+    description: "Airports, train stations, bus terminals"
+    is_active: true
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.VenueType
+  pk: 4
+  fields:
+    name: "Office Buildings"
+    slug: "office-buildings"
+    description: "Corporate office buildings and business districts"
+    is_active: true
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.VenueType
+  pk: 5
+  fields:
+    name: "Sports Facilities"
+    slug: "sports-facilities"
+    description: "Stadiums, gyms, sports complexes"
+    is_active: true
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.VenueType
+  pk: 6
+  fields:
+    name: "Entertainment Centers"
+    slug: "entertainment-centers"
+    description: "Cinemas, theaters, entertainment venues"
+    is_active: true
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.VenueType
+  pk: 7
+  fields:
+    name: "Educational Institutions"
+    slug: "educational-institutions"
+    description: "Universities, schools, libraries"
+    is_active: true
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.VenueType
+  pk: 8
+  fields:
+    name: "Cultural Sites"
+    slug: "cultural-sites"
+    description: "Museums, historical sites, cultural centers"
+    is_active: true
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.VenueType
+  pk: 9
+  fields:
+    name: "Tourist Attractions"
+    slug: "tourist-attractions"
+    description: "Tourist destinations and attractions"
+    is_active: true
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.VenueType
+  pk: 10
+  fields:
+    name: "Business Centers"
+    slug: "business-centers"
+    description: "Business districts and commercial areas"
+    is_active: true
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"

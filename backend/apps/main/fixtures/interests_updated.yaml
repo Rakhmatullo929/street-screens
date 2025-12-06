@@ -1,0 +1,162 @@
+# Updated Interests fixtures
+- model: main.Interest
+  pk: 1
+  fields:
+    name: "Технологии"
+    slug: "tehnologii"
+    description: "Интерес к технологиям и инновациям"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 2
+  fields:
+    name: "Мобильная связь"
+    slug: "mobilnaya-svyaz"
+    description: "Интерес к мобильным технологиям и связи"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 3
+  fields:
+    name: "Интернет"
+    slug: "internet"
+    description: "Интерес к интернет-технологиям"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 4
+  fields:
+    name: "Туризм"
+    slug: "turizm"
+    description: "Интерес к путешествиям и туризму"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 5
+  fields:
+    name: "Путешествия"
+    slug: "puteshestviya"
+    description: "Интерес к путешествиям и открытию новых мест"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 6
+  fields:
+    name: "Культура"
+    slug: "kultura"
+    description: "Интерес к культуре и искусству"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 7
+  fields:
+    name: "Финансы"
+    slug: "finansy"
+    description: "Интерес к финансовым услугам и банкингу"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 8
+  fields:
+    name: "Банкинг"
+    slug: "banking"
+    description: "Интерес к банковским услугам"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 9
+  fields:
+    name: "Бизнес"
+    slug: "biznes"
+    description: "Интерес к бизнесу и предпринимательству"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 10
+  fields:
+    name: "Музыка"
+    slug: "muzyka"
+    description: "Интерес к музыке и музыкальным событиям"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 11
+  fields:
+    name: "Спорт"
+    slug: "sport"
+    description: "Интерес к спорту и физической активности"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 12
+  fields:
+    name: "Мода"
+    slug: "moda"
+    description: "Интерес к моде и стилю"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 13
+  fields:
+    name: "Образование"
+    slug: "obrazovanie"
+    description: "Интерес к образованию и обучению"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 14
+  fields:
+    name: "Наука"
+    slug: "nauka"
+    description: "Интерес к науке и исследованиям"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 15
+  fields:
+    name: "История"
+    slug: "istoriya"
+    description: "Интерес к истории и историческим местам"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 16
+  fields:
+    name: "Транспорт"
+    slug: "transport"
+    description: "Интерес к транспорту и логистике"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 17
+  fields:
+    name: "Город"
+    slug: "gorod"
+    description: "Интерес к городской жизни и урбанистике"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.Interest
+  pk: 18
+  fields:
+    name: "Студенты"
+    slug: "studenty"
+    description: "Интерес к студенческой жизни и образованию"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"

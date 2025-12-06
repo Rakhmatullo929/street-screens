@@ -1,0 +1,249 @@
+- model: main.ScreenManagerVideo
+  pk: 1
+  fields:
+    screen_manager: 1
+    video: "videos/tashkent_city_center_promo.mp4"
+    created_at: 2024-01-15T11:00:00+00
+    updated_at: 2024-01-15T11:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 2
+  fields:
+    screen_manager: 1
+    video: "videos/shopping_center_events.mp4"
+    created_at: 2024-01-15T11:30:00+00
+    updated_at: 2024-01-15T11:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 3
+  fields:
+    screen_manager: 2
+    video: "videos/samarkand_registan_tourism.mp4"
+    created_at: 2024-02-20T15:00:00+00
+    updated_at: 2024-02-20T15:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 4
+  fields:
+    screen_manager: 2
+    video: "videos/samarkand_heritage_culture.mp4"
+    created_at: 2024-02-20T15:30:00+00
+    updated_at: 2024-02-20T15:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 5
+  fields:
+    screen_manager: 3
+    video: "videos/bukhara_historical_center.mp4"
+    created_at: 2024-03-10T10:30:00+00
+    updated_at: 2024-03-10T10:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 6
+  fields:
+    screen_manager: 3
+    video: "videos/bukhara_ark_fortress.mp4"
+    created_at: 2024-03-10T11:00:00+00
+    updated_at: 2024-03-10T11:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 7
+  fields:
+    screen_manager: 4
+    video: "videos/andijan_railway_station.mp4"
+    created_at: 2024-04-05T12:00:00+00
+    updated_at: 2024-04-05T12:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 8
+  fields:
+    screen_manager: 4
+    video: "videos/andijan_transport_info.mp4"
+    created_at: 2024-04-05T12:30:00+00
+    updated_at: 2024-04-05T12:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 9
+  fields:
+    screen_manager: 5
+    video: "videos/namangan_shopping_center.mp4"
+    created_at: 2024-05-12T17:00:00+00
+    updated_at: 2024-05-12T17:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 10
+  fields:
+    screen_manager: 5
+    video: "videos/namangan_retail_promotions.mp4"
+    created_at: 2024-05-12T17:30:00+00
+    updated_at: 2024-05-12T17:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 11
+  fields:
+    screen_manager: 6
+    video: "videos/fergana_airport_departures.mp4"
+    created_at: 2024-06-18T09:30:00+00
+    updated_at: 2024-06-18T09:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 12
+  fields:
+    screen_manager: 6
+    video: "videos/fergana_airport_services.mp4"
+    created_at: 2024-06-18T10:00:00+00
+    updated_at: 2024-06-18T10:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 13
+  fields:
+    screen_manager: 7
+    video: "videos/urgench_university_campus.mp4"
+    created_at: 2024-07-25T14:00:00+00
+    updated_at: 2024-07-25T14:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 14
+  fields:
+    screen_manager: 7
+    video: "videos/urgench_educational_content.mp4"
+    created_at: 2024-07-25T14:30:00+00
+    updated_at: 2024-07-25T14:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 15
+  fields:
+    screen_manager: 8
+    video: "videos/nukus_museum_art.mp4"
+    created_at: 2024-08-30T16:00:00+00
+    updated_at: 2024-08-30T16:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 16
+  fields:
+    screen_manager: 8
+    video: "videos/nukus_cultural_heritage.mp4"
+    created_at: 2024-08-30T16:30:00+00
+    updated_at: 2024-08-30T16:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 17
+  fields:
+    screen_manager: 9
+    video: "videos/kokand_palace_history.mp4"
+    created_at: 2024-09-14T13:00:00+00
+    updated_at: 2024-09-14T13:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 18
+  fields:
+    screen_manager: 9
+    video: "videos/kokand_historical_tours.mp4"
+    created_at: 2024-09-14T13:30:00+00
+    updated_at: 2024-09-14T13:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 19
+  fields:
+    screen_manager: 10
+    video: "videos/tashkent_metro_chilonzar.mp4"
+    created_at: 2024-10-22T08:00:00+00
+    updated_at: 2024-10-22T08:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 20
+  fields:
+    screen_manager: 10
+    video: "videos/tashkent_metro_transport.mp4"
+    created_at: 2024-10-22T08:30:00+00
+    updated_at: 2024-10-22T08:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 21
+  fields:
+    screen_manager: 1
+    video: "videos/tashkent_city_center_news.mp4"
+    created_at: 2024-11-01T09:00:00+00
+    updated_at: 2024-11-01T09:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 22
+  fields:
+    screen_manager: 2
+    video: "videos/samarkand_events_calendar.mp4"
+    created_at: 2024-11-01T09:30:00+00
+    updated_at: 2024-11-01T09:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 23
+  fields:
+    screen_manager: 4
+    video: "videos/andijan_travel_info.mp4"
+    created_at: 2024-11-01T10:00:00+00
+    updated_at: 2024-11-01T10:00:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 24
+  fields:
+    screen_manager: 6
+    video: "videos/fergana_airport_weather.mp4"
+    created_at: 2024-11-01T10:30:00+00
+    updated_at: 2024-11-01T10:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManagerVideo
+  pk: 25
+  fields:
+    screen_manager: 8
+    video: "videos/nukus_museum_exhibitions.mp4"
+    created_at: 2024-11-01T11:00:00+00
+    updated_at: 2024-11-01T11:00:00+00
+    created_by: 2
+    updated_by: 2

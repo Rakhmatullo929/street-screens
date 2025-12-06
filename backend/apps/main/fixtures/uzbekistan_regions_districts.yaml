@@ -1,0 +1,951 @@
+- model: main.region
+  pk: 1
+  fields:
+    name: "Toshkent viloyati"
+    code: "TK"
+    description: "Toshkent viloyati - O'zbekistonning markaziy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 2
+  fields:
+    name: "Andijon viloyati"
+    code: "AN"
+    description: "Andijon viloyati - O'zbekistonning sharqiy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 3
+  fields:
+    name: "Buxoro viloyati"
+    code: "BU"
+    description: "Buxoro viloyati - O'zbekistonning janubi-g'arbiy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 4
+  fields:
+    name: "Farg'ona viloyati"
+    code: "FA"
+    description: "Farg'ona viloyati - O'zbekistonning sharqiy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 5
+  fields:
+    name: "Jizzax viloyati"
+    code: "JI"
+    description: "Jizzax viloyati - O'zbekistonning markaziy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 6
+  fields:
+    name: "Xorazm viloyati"
+    code: "XO"
+    description: "Xorazm viloyati - O'zbekistonning g'arbiy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 7
+  fields:
+    name: "Namangan viloyati"
+    code: "NA"
+    description: "Namangan viloyati - O'zbekistonning sharqiy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 8
+  fields:
+    name: "Navoiy viloyati"
+    code: "NV"
+    description: "Navoiy viloyati - O'zbekistonning markaziy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 9
+  fields:
+    name: "Qashqadaryo viloyati"
+    code: "QA"
+    description: "Qashqadaryo viloyati - O'zbekistonning janubiy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 10
+  fields:
+    name: "Qoraqalpog'iston Respublikasi"
+    code: "QR"
+    description: "Qoraqalpog'iston Respublikasi - O'zbekistonning shimoli"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 11
+  fields:
+    name: "Samarqand viloyati"
+    code: "SA"
+    description: "Samarqand viloyati - O'zbekistonning markaziy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 12
+  fields:
+    name: "Sirdaryo viloyati"
+    code: "SI"
+    description: "Sirdaryo viloyati - O'zbekistonning markaziy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 13
+  fields:
+    name: "Surxondaryo viloyati"
+    code: "SU"
+    description: "Surxondaryo viloyati - O'zbekistonning janubiy qismi"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.region
+  pk: 14
+  fields:
+    name: "Toshkent shahri"
+    code: "TS"
+    description: "Toshkent shahri - O'zbekiston poytaxti"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+# Toshkent viloyati districts
+- model: main.district
+  pk: 1
+  fields:
+    name: "Angren shahri"
+    code: "ANG"
+    region: 1
+    description: "Angren shahri - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 2
+  fields:
+    name: "Bekobod tumani"
+    code: "BEK"
+    region: 1
+    description: "Bekobod tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 3
+  fields:
+    name: "Bo'ka tumani"
+    code: "BOK"
+    region: 1
+    description: "Bo'ka tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 4
+  fields:
+    name: "Bo'stonliq tumani"
+    code: "BOS"
+    region: 1
+    description: "Bo'stonliq tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 5
+  fields:
+    name: "Chinoz tumani"
+    code: "CHI"
+    region: 1
+    description: "Chinoz tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 6
+  fields:
+    name: "Chirchiq shahri"
+    code: "CHR"
+    region: 1
+    description: "Chirchiq shahri - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 7
+  fields:
+    name: "Olmaliq shahri"
+    code: "OLM"
+    region: 1
+    description: "Olmaliq shahri - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 8
+  fields:
+    name: "Oqqo'rg'on tumani"
+    code: "OQQ"
+    region: 1
+    description: "Oqqo'rg'on tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 9
+  fields:
+    name: "Parkent tumani"
+    code: "PAR"
+    region: 1
+    description: "Parkent tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 10
+  fields:
+    name: "Piskent tumani"
+    code: "PIS"
+    region: 1
+    description: "Piskent tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 11
+  fields:
+    name: "Quyi Chirchiq tumani"
+    code: "QUY"
+    region: 1
+    description: "Quyi Chirchiq tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 12
+  fields:
+    name: "O'rta Chirchiq tumani"
+    code: "ORT"
+    region: 1
+    description: "O'rta Chirchiq tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 13
+  fields:
+    name: "Yangiyo'l tumani"
+    code: "YAN"
+    region: 1
+    description: "Yangiyo'l tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 14
+  fields:
+    name: "Yuqori Chirchiq tumani"
+    code: "YUQ"
+    region: 1
+    description: "Yuqori Chirchiq tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 15
+  fields:
+    name: "Zangiota tumani"
+    code: "ZAN"
+    region: 1
+    description: "Zangiota tumani - Toshkent viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+# Andijon viloyati districts
+- model: main.district
+  pk: 16
+  fields:
+    name: "Andijon shahri"
+    code: "AND"
+    region: 2
+    description: "Andijon shahri - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 17
+  fields:
+    name: "Asaka tumani"
+    code: "ASA"
+    region: 2
+    description: "Asaka tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 18
+  fields:
+    name: "Baliqchi tumani"
+    code: "BAL"
+    region: 2
+    description: "Baliqchi tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 19
+  fields:
+    name: "Bo'z tumani"
+    code: "BOZ"
+    region: 2
+    description: "Bo'z tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 20
+  fields:
+    name: "Buloqboshi tumani"
+    code: "BUL"
+    region: 2
+    description: "Buloqboshi tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 21
+  fields:
+    name: "Izboskan tumani"
+    code: "IZB"
+    region: 2
+    description: "Izboskan tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 22
+  fields:
+    name: "Jalaquduq tumani"
+    code: "JAL"
+    region: 2
+    description: "Jalaquduq tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 23
+  fields:
+    name: "Qo'rg'ontepa tumani"
+    code: "QOR"
+    region: 2
+    description: "Qo'rg'ontepa tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 24
+  fields:
+    name: "Qo'qon shahri"
+    code: "QOQ"
+    region: 2
+    description: "Qo'qon shahri - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 25
+  fields:
+    name: "Marhamat tumani"
+    code: "MAR"
+    region: 2
+    description: "Marhamat tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 26
+  fields:
+    name: "Oltinko'l tumani"
+    code: "OLT"
+    region: 2
+    description: "Oltinko'l tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 27
+  fields:
+    name: "Paxtaobod tumani"
+    code: "PAX"
+    region: 2
+    description: "Paxtaobod tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 28
+  fields:
+    name: "Shahrixon tumani"
+    code: "SHA"
+    region: 2
+    description: "Shahrixon tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 29
+  fields:
+    name: "Ulug'nor tumani"
+    code: "ULU"
+    region: 2
+    description: "Ulug'nor tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 30
+  fields:
+    name: "Xonobod tumani"
+    code: "XON"
+    region: 2
+    description: "Xonobod tumani - Andijon viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+# Buxoro viloyati districts
+- model: main.district
+  pk: 31
+  fields:
+    name: "Buxoro shahri"
+    code: "BUX"
+    region: 3
+    description: "Buxoro shahri - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 32
+  fields:
+    name: "Buxoro tumani"
+    code: "BUX"
+    region: 3
+    description: "Buxoro tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 33
+  fields:
+    name: "Vobkent tumani"
+    code: "VOB"
+    region: 3
+    description: "Vobkent tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 34
+  fields:
+    name: "G'ijduvon tumani"
+    code: "GIJ"
+    region: 3
+    description: "G'ijduvon tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 35
+  fields:
+    name: "Jondor tumani"
+    code: "JON"
+    region: 3
+    description: "Jondor tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 36
+  fields:
+    name: "Kogon tumani"
+    code: "KOG"
+    region: 3
+    description: "Kogon tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 37
+  fields:
+    name: "Olot tumani"
+    code: "OLO"
+    region: 3
+    description: "Olot tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 38
+  fields:
+    name: "Peshku tumani"
+    code: "PES"
+    region: 3
+    description: "Peshku tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 39
+  fields:
+    name: "Qorako'l tumani"
+    code: "QOR"
+    region: 3
+    description: "Qorako'l tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 40
+  fields:
+    name: "Qorovulbozor tumani"
+    code: "QOR"
+    region: 3
+    description: "Qorovulbozor tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 41
+  fields:
+    name: "Romitan tumani"
+    code: "ROM"
+    region: 3
+    description: "Romitan tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 42
+  fields:
+    name: "Shofirkon tumani"
+    code: "SHO"
+    region: 3
+    description: "Shofirkon tumani - Buxoro viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+# Farg'ona viloyati districts
+- model: main.district
+  pk: 43
+  fields:
+    name: "Farg'ona shahri"
+    code: "FAR"
+    region: 4
+    description: "Farg'ona shahri - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 44
+  fields:
+    name: "Beshariq tumani"
+    code: "BES"
+    region: 4
+    description: "Beshariq tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 45
+  fields:
+    name: "Bog'dod tumani"
+    code: "BOG"
+    region: 4
+    description: "Bog'dod tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 46
+  fields:
+    name: "Buvayda tumani"
+    code: "BUV"
+    region: 4
+    description: "Buvayda tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 47
+  fields:
+    name: "Dang'ara tumani"
+    code: "DAN"
+    region: 4
+    description: "Dang'ara tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 48
+  fields:
+    name: "Farg'ona tumani"
+    code: "FAR"
+    region: 4
+    description: "Farg'ona tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 49
+  fields:
+    name: "Furqat tumani"
+    code: "FUR"
+    region: 4
+    description: "Furqat tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 50
+  fields:
+    name: "Qo'qon shahri"
+    code: "QOQ"
+    region: 4
+    description: "Qo'qon shahri - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 51
+  fields:
+    name: "Qo'shtepa tumani"
+    code: "QOS"
+    region: 4
+    description: "Qo'shtepa tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 52
+  fields:
+    name: "Rishton tumani"
+    code: "RIS"
+    region: 4
+    description: "Rishton tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 53
+  fields:
+    name: "So'x tumani"
+    code: "SOX"
+    region: 4
+    description: "So'x tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 54
+  fields:
+    name: "Toshloq tumani"
+    code: "TOS"
+    region: 4
+    description: "Toshloq tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 55
+  fields:
+    name: "Uchko'prik tumani"
+    code: "UCH"
+    region: 4
+    description: "Uchko'prik tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 56
+  fields:
+    name: "Yozyovon tumani"
+    code: "YOZ"
+    region: 4
+    description: "Yozyovon tumani - Farg'ona viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+# Samarqand viloyati districts
+- model: main.district
+  pk: 57
+  fields:
+    name: "Samarqand shahri"
+    code: "SAM"
+    region: 11
+    description: "Samarqand shahri - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 58
+  fields:
+    name: "Bulung'ur tumani"
+    code: "BUL"
+    region: 11
+    description: "Bulung'ur tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 59
+  fields:
+    name: "Ishtixon tumani"
+    code: "ISH"
+    region: 11
+    description: "Ishtixon tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 60
+  fields:
+    name: "Jomboy tumani"
+    code: "JOM"
+    region: 11
+    description: "Jomboy tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 61
+  fields:
+    name: "Kattaqo'rg'on shahri"
+    code: "KAT"
+    region: 11
+    description: "Kattaqo'rg'on shahri - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 62
+  fields:
+    name: "Kattaqo'rg'on tumani"
+    code: "KAT"
+    region: 11
+    description: "Kattaqo'rg'on tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 63
+  fields:
+    name: "Kosonsoy tumani"
+    code: "KOS"
+    region: 11
+    description: "Kosonsoy tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 64
+  fields:
+    name: "Narpay tumani"
+    code: "NAR"
+    region: 11
+    description: "Narpay tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 65
+  fields:
+    name: "Nurobod tumani"
+    code: "NUR"
+    region: 11
+    description: "Nurobod tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 66
+  fields:
+    name: "Oqdaryo tumani"
+    code: "OQD"
+    region: 11
+    description: "Oqdaryo tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 67
+  fields:
+    name: "Pastdarg'om tumani"
+    code: "PAS"
+    region: 11
+    description: "Pastdarg'om tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 68
+  fields:
+    name: "Paxtachi tumani"
+    code: "PAX"
+    region: 11
+    description: "Paxtachi tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 69
+  fields:
+    name: "Payariq tumani"
+    code: "PAY"
+    region: 11
+    description: "Payariq tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 70
+  fields:
+    name: "Qo'shrabot tumani"
+    code: "QOS"
+    region: 11
+    description: "Qo'shrabot tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 71
+  fields:
+    name: "Urgut tumani"
+    code: "URG"
+    region: 11
+    description: "Urgut tumani - Samarqand viloyati"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+# Toshkent shahri districts
+- model: main.district
+  pk: 72
+  fields:
+    name: "Bektemir tumani"
+    code: "BEK"
+    region: 14
+    description: "Bektemir tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 73
+  fields:
+    name: "Chilonzor tumani"
+    code: "CHI"
+    region: 14
+    description: "Chilonzor tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 74
+  fields:
+    name: "Mirobod tumani"
+    code: "MIR"
+    region: 14
+    description: "Mirobod tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 75
+  fields:
+    name: "Mirzo Ulug'bek tumani"
+    code: "MIU"
+    region: 14
+    description: "Mirzo Ulug'bek tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 76
+  fields:
+    name: "Olmazor tumani"
+    code: "OLM"
+    region: 14
+    description: "Olmazor tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 77
+  fields:
+    name: "Sergeli tumani"
+    code: "SER"
+    region: 14
+    description: "Sergeli tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 78
+  fields:
+    name: "Shayxontohur tumani"
+    code: "SHA"
+    region: 14
+    description: "Shayxontohur tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 79
+  fields:
+    name: "Uchtepa tumani"
+    code: "UCH"
+    region: 14
+    description: "Uchtepa tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 80
+  fields:
+    name: "Yakkasaroy tumani"
+    code: "YAK"
+    region: 14
+    description: "Yakkasaroy tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 81
+  fields:
+    name: "Yashnobod tumani"
+    code: "YAS"
+    region: 14
+    description: "Yashnobod tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"
+
+- model: main.district
+  pk: 82
+  fields:
+    name: "Yunusobod tumani"
+    code: "YUN"
+    region: 14
+    description: "Yunusobod tumani - Toshkent shahri"
+    created_at: "2024-01-01T00:00:00Z"
+    updated_at: "2024-01-01T00:00:00Z"

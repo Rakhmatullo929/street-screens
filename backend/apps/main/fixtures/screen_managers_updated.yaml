@@ -1,0 +1,190 @@
+# Updated Screen Manager fixtures compatible with current model structure
+- model: main.ScreenManager
+  pk: 1
+  fields:
+    title: "Ташкент Сити Центр - Главный экран"
+    position: "Вход в торговый центр"
+    location: "Ташкент, Чиланзарский район, Ташкент Сити"
+    coordinates:
+      lat: 41.2995
+      lng: 69.2401
+    region: 14  # Toshkent shahri
+    status: "active"
+    type_category: "LED"
+    screen_size: "75 inch"
+    screen_resolution: 3840
+    created_at: 2024-01-15T10:30:00+00
+    updated_at: 2024-01-15T10:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManager
+  pk: 2
+  fields:
+    title: "Регистан - Туристический экран"
+    position: "Площадь Регистан"
+    location: "Самарканд, площадь Регистан"
+    coordinates:
+      lat: 39.6547
+      lng: 66.9597
+    region: 11  # Samarqand viloyati
+    status: "active"
+    type_category: "LCD"
+    screen_size: "65 inch"
+    screen_resolution: 1920
+    created_at: 2024-02-20T14:15:00+00
+    updated_at: 2024-02-20T14:15:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManager
+  pk: 3
+  fields:
+    title: "Бухара - Старый город"
+    position: "Арк крепость"
+    location: "Бухара, исторический центр"
+    coordinates:
+      lat: 39.7756
+      lng: 64.4286
+    region: 3  # Buxoro viloyati
+    status: "maintenance"
+    type_category: "LED"
+    screen_size: "55 inch"
+    screen_resolution: 1920
+    created_at: 2024-03-10T09:45:00+00
+    updated_at: 2024-03-10T09:45:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManager
+  pk: 4
+  fields:
+    title: "Андижан - Центральный вокзал"
+    position: "Зал ожидания"
+    location: "Андижан, центральный железнодорожный вокзал"
+    coordinates:
+      lat: 40.7681
+      lng: 72.2360
+    region: 2  # Andijon viloyati
+    status: "active"
+    type_category: "LED"
+    screen_size: "70 inch"
+    screen_resolution: 2560
+    created_at: 2024-04-05T11:20:00+00
+    updated_at: 2024-04-05T11:20:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManager
+  pk: 5
+  fields:
+    title: "Наманган - Торговый центр"
+    position: "Главный атриум"
+    location: "Наманган, торговый центр 'Наманган'"
+    coordinates:
+      lat: 40.9983
+      lng: 71.6726
+    region: 7  # Namangan viloyati
+    status: "active"
+    type_category: "LCD"
+    screen_size: "60 inch"
+    screen_resolution: 1920
+    created_at: 2024-05-12T16:30:00+00
+    updated_at: 2024-05-12T16:30:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManager
+  pk: 6
+  fields:
+    title: "Фергана - Аэропорт"
+    position: "Зал вылетов"
+    location: "Фергана, международный аэропорт"
+    coordinates:
+      lat: 40.3588
+      lng: 71.7450
+    region: 4  # Farg'ona viloyati
+    status: "active"
+    type_category: "LED"
+    screen_size: "80 inch"
+    screen_resolution: 3840
+    created_at: 2024-06-18T08:45:00+00
+    updated_at: 2024-06-18T08:45:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManager
+  pk: 7
+  fields:
+    title: "Ургенч - Университет"
+    position: "Главный корпус"
+    location: "Ургенч, Ургенчский государственный университет"
+    coordinates:
+      lat: 41.5503
+      lng: 60.6333
+    region: 6  # Xorazm viloyati
+    status: "inactive"
+    type_category: "LCD"
+    screen_size: "50 inch"
+    screen_resolution: 1920
+    created_at: 2024-07-25T13:15:00+00
+    updated_at: 2024-07-25T13:15:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManager
+  pk: 8
+  fields:
+    title: "Нукус - Музей"
+    position: "Вход в музей"
+    location: "Нукус, музей искусств имени И.В. Савицкого"
+    coordinates:
+      lat: 42.4600
+      lng: 59.6100
+    region: 10  # Qoraqalpog'iston Respublikasi
+    status: "active"
+    type_category: "LED"
+    screen_size: "65 inch"
+    screen_resolution: 2560
+    created_at: 2024-08-30T15:20:00+00
+    updated_at: 2024-08-30T15:20:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManager
+  pk: 9
+  fields:
+    title: "Коканд - Дворец Худояр-хана"
+    position: "Парадный вход"
+    location: "Коканд, дворец Худояр-хана"
+    coordinates:
+      lat: 40.5286
+      lng: 70.9425
+    region: 2  # Andijon viloyati (Qo'qon is in Andijon region)
+    status: "active"
+    type_category: "LED"
+    screen_size: "55 inch"
+    screen_resolution: 1920
+    created_at: 2024-09-14T12:10:00+00
+    updated_at: 2024-09-14T12:10:00+00
+    created_by: 2
+    updated_by: 2
+
+- model: main.ScreenManager
+  pk: 10
+  fields:
+    title: "Ташкент - Метро Чилонзар"
+    position: "Платформа станции"
+    location: "Ташкент, станция метро Чилонзар"
+    coordinates:
+      lat: 41.2856
+      lng: 69.2042
+    region: 14  # Toshkent shahri
+    status: "active"
+    type_category: "LED"
+    screen_size: "45 inch"
+    screen_resolution: 1920
+    created_at: 2024-10-22T07:30:00+00
+    updated_at: 2024-10-22T07:30:00+00
+    created_by: 2
+    updated_by: 2
