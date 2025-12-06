@@ -67,7 +67,7 @@ const DOOH_ICONS = {
 } as const;
 
 export function useNavData() {
-  const { t } = useLocales();
+  // const { t } = useLocales();
 
   const data = useMemo(
     (): Array<{
@@ -80,30 +80,6 @@ export function useNavData() {
         disabled?: boolean;
       }>;
     }> => [
-      
-      
-      {
-        subheader: t('overview'),
-        items: [
-          { 
-            title: 'Dashboard', 
-            path: paths.dashboard.root, 
-            icon: DOOH_ICONS.dashboard,
-            disabled: true,
-            info: <Iconify icon="solar:clock-circle-bold" width={16} sx={{ color: 'warning.main' }} />
-          },
-          
-          
-          
-          
-          
-          
-          
-        ],
-      },
-
-      
-      
       {
         subheader: 'DOOH Advertising',
         items: [
@@ -165,7 +141,7 @@ export function useNavData() {
         ],
       },
     ],
-    [t]
+    []
   );
 
   return data;
