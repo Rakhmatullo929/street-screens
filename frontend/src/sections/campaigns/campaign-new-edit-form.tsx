@@ -1094,8 +1094,8 @@ export default function CampaignNewEditForm({
                         <Iconify icon="solar:user-id-bold-duotone" width={20} />
                         <Typography variant="h6">Возрастное ограничение</Typography>
                         <Chip
-                          label="Coming Soon"
-                          color="warning"
+                          label="New"
+                          color="success"
                           size="small"
                           variant="soft"
                           sx={{ ml: 'auto' }}
@@ -1123,7 +1123,7 @@ export default function CampaignNewEditForm({
                               valueLabelDisplay="auto"
                               min={13}
                               max={65}
-                              disabled
+                              // disabled
                               marks={[
                                 { value: 13, label: '13' },
                                 { value: 18, label: '18' },
@@ -1148,19 +1148,6 @@ export default function CampaignNewEditForm({
                             />
                           )}
                         />
-                      </Box>
-
-                      <Box
-                        sx={{
-                          p: 2,
-                          bgcolor: 'warning.lighter',
-                          borderRadius: 1,
-                          opacity: 0.8,
-                        }}
-                      >
-                        <Typography variant="caption" color="warning.darker">
-                          <strong>Внимание:</strong> Функция возрастного таргетинга временно недоступна. В ближайшее время будет добавлена возможность настройки возрастных ограничений для ваших рекламных кампаний.
-                        </Typography>
                       </Box>
                     </Stack>
                   </Card>
