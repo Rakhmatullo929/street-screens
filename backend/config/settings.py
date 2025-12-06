@@ -191,3 +191,9 @@ SIMPLE_JWT = {
     "ALGORITHM": "HS512",
 }
 os.environ["DJANGO_RUNSERVER_HIDE_WARNING"] = "true"
+
+
+try:
+    from .settings_dev import *
+except ImportError:
+    pass
