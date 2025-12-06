@@ -20,12 +20,6 @@ export function SettingsProvider({ children, defaultSettings }: SettingsProvider
 
   const isArabic = localStorageGetItem('i18nextLng') === 'ar';
 
-  useEffect(() => {
-    if (isArabic) {
-      onChangeDirectionByLang('ar');
-    }
-    
-  }, [isArabic]);
 
   const onUpdate = useCallback(
     (name: string, value: string | boolean) => {
@@ -37,7 +31,7 @@ export function SettingsProvider({ children, defaultSettings }: SettingsProvider
     [setSettings]
   );
 
-  
+
   const onChangeDirectionByLang = useCallback(
     (lang: string) => {
       onUpdate('themeDirection', lang === 'ar' ? 'rtl' : 'ltr');
@@ -45,12 +39,18 @@ export function SettingsProvider({ children, defaultSettings }: SettingsProvider
     [onUpdate]
   );
 
-  
+  useEffect(() => {
+    if (isArabic) {
+      onChangeDirectionByLang('ar');
+    }
+  }, [isArabic, onChangeDirectionByLang]);
+
+
   const onReset = useCallback(() => {
     setSettings(defaultSettings);
   }, [defaultSettings, setSettings]);
 
-  
+
   const onToggleDrawer = useCallback(() => {
     setOpenDrawer((prev) => !prev);
   }, []);
@@ -65,12 +65,12 @@ export function SettingsProvider({ children, defaultSettings }: SettingsProvider
     () => ({
       ...settings,
       onUpdate,
-      
+
       onChangeDirectionByLang,
-      
+
       canReset,
       onReset,
-      
+
       open: openDrawer,
       onToggle: onToggleDrawer,
       onClose: onCloseDrawer,

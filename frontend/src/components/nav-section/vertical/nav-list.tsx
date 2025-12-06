@@ -24,13 +24,6 @@ export default function NavList({ data, depth, hasChild, config }: NavListRootPr
 
   const [open, setOpen] = useState(active);
 
-  useEffect(() => {
-    if (!active) {
-      handleClose();
-    }
-    
-  }, [pathname]);
-
   const handleToggle = useCallback(() => {
     setOpen((prev) => !prev);
   }, []);
@@ -38,6 +31,12 @@ export default function NavList({ data, depth, hasChild, config }: NavListRootPr
   const handleClose = useCallback(() => {
     setOpen(false);
   }, []);
+
+  useEffect(() => {
+    if (!active) {
+      handleClose();
+    }
+  }, [pathname, active, handleClose]);
 
   return (
     <>

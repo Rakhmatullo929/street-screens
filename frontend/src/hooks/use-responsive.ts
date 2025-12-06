@@ -39,14 +39,15 @@ type BreakpointOrNull = Breakpoint | null;
 export function useWidth() {
   const theme = useTheme();
 
-  const keys = [...theme.breakpoints.keys].reverse();
+  const xs = useMediaQuery(theme.breakpoints.up('xs'));
+  const sm = useMediaQuery(theme.breakpoints.up('sm'));
+  const md = useMediaQuery(theme.breakpoints.up('md'));
+  const lg = useMediaQuery(theme.breakpoints.up('lg'));
+  const xl = useMediaQuery(theme.breakpoints.up('xl'));
 
-  return (
-    keys.reduce((output: BreakpointOrNull, key: Breakpoint) => {
-      
-      const matches = useMediaQuery(theme.breakpoints.up(key));
-
-      return !output && matches ? key : output;
-    }, null) || 'xs'
-  );
+  if (xl) return 'xl';
+  if (lg) return 'lg';
+  if (md) return 'md';
+  if (sm) return 'sm';
+  return 'xs';
 }

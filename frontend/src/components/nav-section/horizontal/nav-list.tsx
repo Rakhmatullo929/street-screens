@@ -29,10 +29,7 @@ export default function NavList({ data, depth, hasChild, config }: NavListRootPr
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (open) {
-      handleClose();
-    }
-    
+    setOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -40,7 +37,7 @@ export default function NavList({ data, depth, hasChild, config }: NavListRootPr
       document.querySelectorAll(`.${appBarClasses.root}`)
     ) as Array<HTMLElement>;
 
-    
+
     const styles = () => {
       document.body.style.overflow = '';
       document.body.style.padding = '';

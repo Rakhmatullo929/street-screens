@@ -29,12 +29,11 @@ export default function NavList({ item, offsetTop }: NavListProps) {
 
   const externalLink = path.includes('http');
 
+  const { onFalse } = nav;
+
   useEffect(() => {
-    if (nav.value) {
-      nav.onFalse();
-    }
-    
-  }, [pathname]);
+    onFalse();
+  }, [pathname, onFalse]);
 
   const handleOpenMenu = () => {
     if (children) {

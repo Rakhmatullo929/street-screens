@@ -32,11 +32,8 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
   const navData = useNavData();
 
   useEffect(() => {
-    if (openNav) {
-      onCloseNav();
-    }
-    
-  }, [pathname]);
+    onCloseNav();
+  }, [pathname, onCloseNav]);
 
   const renderContent = (
     <Scrollbar

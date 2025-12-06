@@ -26,36 +26,40 @@ export function useApiQuery<T = any>(options: UseApiQueryOptions): UseApiQueryRe
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
-  
+
   const callbacksRef = useRef({ onSuccess, onError });
 
   useEffect(() => {
     callbacksRef.current = { onSuccess, onError };
   }, [onSuccess, onError]);
 
-  
+
+  const serializedParams = useMemo(() => JSON.stringify(config.params), [config.params]);
+  const serializedHeaders = useMemo(() => JSON.stringify(config.headers), [config.headers]);
+  const serializedData = useMemo(() => JSON.stringify(config.data), [config.data]);
+
   const memoizedConfig = useMemo(
     () => ({
       url: config.url,
       method: config.method,
-      params: config.params,
-      headers: config.headers,
-      data: config.data,
+      params: serializedParams ? JSON.parse(serializedParams) : undefined,
+      headers: serializedHeaders ? JSON.parse(serializedHeaders) : undefined,
+      data: serializedData ? JSON.parse(serializedData) : undefined,
     }),
-    [config.url, config.method, config.params, config.headers, config.data]
+    [config.url, config.method, serializedParams, serializedHeaders, serializedData]
   );
 
-  
+
   const configKey = useMemo(() => {
     const paramsString = memoizedConfig.params
       ? Object.keys(memoizedConfig.params)
-          .filter(
-            (key) =>
-              memoizedConfig.params![key] !== undefined && memoizedConfig.params![key] !== null
-          )
-          .map((key) => `${key}=${memoizedConfig.params![key]}`)
-          .sort()
-          .join('&')
+        .filter(
+          (key) =>
+            memoizedConfig.params![key] !== undefined && memoizedConfig.params![key] !== null
+        )
+        .map((key) => `${key}=${memoizedConfig.params![key]}`)
+        .sort()
+        .join('&')
       : '';
 
     return `${memoizedConfig.url}::${memoizedConfig.method || 'GET'}::${paramsString}`;
@@ -90,8 +94,8 @@ export function useApiQuery<T = any>(options: UseApiQueryOptions): UseApiQueryRe
     if (enabled && memoizedConfig.url) {
       fetchData();
     }
-    
-  }, [configKey, enabled]);
+
+  }, [configKey, enabled, fetchData, memoizedConfig.url]);
 
   useEffect(() => {
     if (refetchInterval && enabled) {
@@ -101,8 +105,8 @@ export function useApiQuery<T = any>(options: UseApiQueryOptions): UseApiQueryRe
       return () => clearInterval(interval);
     }
     return undefined;
-    
-  }, [refetchInterval, configKey, enabled]);
+
+  }, [refetchInterval, configKey, enabled, fetchData]);
 
   return {
     data,

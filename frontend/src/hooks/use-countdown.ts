@@ -15,13 +15,7 @@ export function useCountdownDate(date: Date): ReturnDateType {
     seconds: '00',
   });
 
-  useEffect(() => {
-    const interval = setInterval(() => setNewTime(), 1000);
-    return () => clearInterval(interval);
-    
-  }, []);
-
-  const setNewTime = () => {
+  const setNewTime = useCallback(() => {
     const startTime = date;
 
     const endTime = new Date();
@@ -44,7 +38,12 @@ export function useCountdownDate(date: Date): ReturnDateType {
       minutes: getMinutes || '000',
       seconds: getSeconds || '000',
     });
-  };
+  }, [date]);
+
+  useEffect(() => {
+    const interval = setInterval(() => setNewTime(), 1000);
+    return () => clearInterval(interval);
+  }, [setNewTime]);
 
   return {
     days: countdown.days,

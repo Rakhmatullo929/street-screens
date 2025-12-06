@@ -20,12 +20,11 @@ export default function NavMobile({ offsetTop, data }: NavProps) {
 
   const nav = useBoolean();
 
+  const { onFalse } = nav;
+
   useEffect(() => {
-    if (nav.value) {
-      nav.onFalse();
-    }
-    
-  }, [pathname]);
+    onFalse();
+  }, [pathname, onFalse]);
 
   return (
     <>
