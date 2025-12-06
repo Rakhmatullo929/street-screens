@@ -42,6 +42,7 @@ class ScreenManagerSerializer(serializers.ModelSerializer):
             "type_category",
             "screen_size",
             "screen_resolution",
+            "popular_times",
             "created_at",
             "updated_at",
             "created_by",

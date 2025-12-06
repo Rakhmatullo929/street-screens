@@ -10,6 +10,7 @@ djangorestframework==3.16.1
 djangorestframework_simplejwt==5.5.1
 gunicorn==21.2.0
 idna==3.11
+outscraper==3.1.8
 PyJWT==2.10.1
 python-dotenv==1.2.1
 requests==2.32.5

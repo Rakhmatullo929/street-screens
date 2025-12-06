@@ -143,6 +143,9 @@ class ScreenManager(BaseModel):
     type_category = models.CharField(max_length=255)
     screen_size = models.CharField(max_length=255)
     screen_resolution = models.IntegerField()
+    popular_times = models.JSONField(
+        blank=True, null=True, help_text="Popular times data for foot traffic analysis"
+    )
 
     class Meta(BaseModel.Meta):
         db_table = "main_screen_manager"
