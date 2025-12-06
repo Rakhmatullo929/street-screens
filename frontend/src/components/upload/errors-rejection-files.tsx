@@ -10,7 +10,7 @@ import { fData } from 'src/utils/format-number';
 import { fileData } from '../file-thumbnail';
 
 type Props = {
-  fileRejections: FileRejection[];
+  fileRejections: FileRejection[] | readonly FileRejection[];
 };
 
 export default function RejectionFiles({ fileRejections }: Props) {

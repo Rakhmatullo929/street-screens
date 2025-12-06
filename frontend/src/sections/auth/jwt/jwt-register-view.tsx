@@ -166,8 +166,8 @@ export default function JwtRegisterView() {
           label="User Type"
           placeholder="Select user type"
         >
-          <MenuItem value={USER_TYPES.ADS_CLIENT}>Ads Client</MenuItem>
-          <MenuItem value={USER_TYPES.ADS_MANAGER}>Ads Manager</MenuItem>
+          <MenuItem value={USER_TYPES.ADS_CLIENT}>StreetScreen Client</MenuItem>
+          <MenuItem value={USER_TYPES.ADS_MANAGER}>StreetScreen Manager</MenuItem>
         </RHFSelect>
 
         <LoadingButton

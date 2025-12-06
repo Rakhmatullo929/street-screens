@@ -82,6 +82,7 @@ export default function AboutTeam() {
             },
           }}
         >
+          {/* @ts-ignore */}
           <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
             {_carouselsMembers.map((member) => (
               <Box

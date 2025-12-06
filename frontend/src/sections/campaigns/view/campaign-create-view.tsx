@@ -25,7 +25,7 @@ export default function CampaignCreateView() {
             sx={{ display: 'flex', alignItems: 'center' }}
           >
             <Iconify icon="solar:home-2-bold-duotone" width={16} sx={{ mr: 0.5 }} />
-            Ads Manager
+            StreetScreen Manager
           </Link>
           <Typography color="text.primary">Create Campaign</Typography>
         </Breadcrumbs>

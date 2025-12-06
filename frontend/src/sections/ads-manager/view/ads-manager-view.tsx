@@ -335,7 +335,7 @@ export default function AdsManagerView() {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            Ads Manager
+            StreetScreen Manager
           </Typography>
           <Button
             variant="contained"
