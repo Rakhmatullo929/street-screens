@@ -165,7 +165,7 @@ export default function CampaignNewEditForm({
                     return Object.values(value).some(Boolean);
                 }
             ),
-            displayDuration: Yup.number().oneOf([5, 10, 15], 'Select display time on monitor'),
+            displayDuration: Yup.number().oneOf([5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55], 'Select display time on monitor'),
             contentType: Yup.string().oneOf(['video', 'image'], 'Select content type'),
             contentFiles: Yup.array().test('content-files-required', (value, {parent, createError}) => {
                 const {contentType} = parent;
