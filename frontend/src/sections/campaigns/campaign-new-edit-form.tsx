@@ -1,8 +1,8 @@
-import {useMemo, useCallback, useState, useEffect} from 'react';
+import { useMemo, useCallback, useState, useEffect } from 'react';
 import * as Yup from 'yup';
-import {useForm, Controller} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
-import {useNavigate} from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 
 import {
     Card,
@@ -23,24 +23,24 @@ import {
     DialogActions,
     Fab,
 } from '@mui/material';
-import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-import {paths} from 'src/routes/paths';
+import { paths } from 'src/routes/paths';
 
 import Iconify from 'src/components/iconify';
-import {useSnackbar} from 'src/components/snackbar';
+import { useSnackbar } from 'src/components/snackbar';
 import FormProvider, {
     RHFTextField,
     RHFAutocomplete,
     RHFUpload,
 } from 'src/components/hook-form';
-import {CustomFile} from 'src/components/upload/types';
-import WeeklyScheduleCalendar, {WeeklySchedule} from 'src/components/schedule/weekly-schedule-calendar';
+import { CustomFile } from 'src/components/upload/types';
+import WeeklyScheduleCalendar, { WeeklySchedule } from 'src/components/schedule/weekly-schedule-calendar';
 import RegionDistrictSelect from 'src/components/region-district-select';
 
-import {useRegionDistrictOptions} from 'src/hooks/use-regions';
-import {useApiMutation} from 'src/hooks/use-api-mutation';
-import {useApiQuery} from 'src/hooks/use-api-query';
+import { useRegionDistrictOptions } from 'src/hooks/use-regions';
+import { useApiMutation } from 'src/hooks/use-api-mutation';
+import { useApiQuery } from 'src/hooks/use-api-query';
 
 import {
     DISPLAY_DURATION_OPTIONS,
@@ -48,11 +48,11 @@ import {
     convertBackendScheduleToCalendar
 } from 'src/constants/dooh-data';
 
-import type {IAdsManager, IAdsManagerCreateUpdate} from 'src/types/ads-manager';
+import type { IAdsManager, IAdsManagerCreateUpdate } from 'src/types/ads-manager';
 
-import {API_ENDPOINTS} from 'src/utils/axios';
+import { API_ENDPOINTS } from 'src/utils/axios';
 
-import {HOST_API} from 'src/config-global';
+import { HOST_API } from 'src/config-global';
 
 const INTERESTS = [
     'Technology',
@@ -73,22 +73,23 @@ const INTERESTS = [
 ];
 
 const CURRENCIES = [
-    {value: 'USD', label: 'USD', symbol: '$'},
-    {value: 'UZS', label: 'UZS', symbol: 'UZS'},
-    {value: 'EUR', label: 'EUR', symbol: '€'},
+    { value: 'USD', label: 'USD', symbol: '$' },
+    { value: 'UZS', label: 'UZS', symbol: 'UZS' },
+    { value: 'EUR', label: 'EUR', symbol: '€' },
 ];
 
 const VENUE_TYPES = [
-    {id: 'shopping', label: 'Shopping Centers', icon: 'solar:shop-2-bold-duotone'},
-    {id: 'street', label: 'Streets & Roads', icon: 'solar:streets-bold-duotone'},
-    {id: 'transport', label: 'Transport', icon: 'solar:bus-bold-duotone'},
-    {id: 'office', label: 'Office Buildings', icon: 'solar:buildings-2-bold-duotone'},
-    {id: 'sports', label: 'Sports Facilities', icon: 'solar:football-bold-duotone'},
-    {id: 'entertainment', label: 'Entertainment Centers', icon: 'solar:star-bold-duotone'},
+    { id: 'shopping', label: 'Shopping Centers', icon: 'solar:shop-2-bold-duotone' },
+    { id: 'street', label: 'Streets & Roads', icon: 'solar:streets-bold-duotone' },
+    { id: 'transport', label: 'Transport', icon: 'solar:bus-bold-duotone' },
+    { id: 'office', label: 'Office Buildings', icon: 'solar:buildings-2-bold-duotone' },
+    { id: 'sports', label: 'Sports Facilities', icon: 'solar:football-bold-duotone' },
+    { id: 'entertainment', label: 'Entertainment Centers', icon: 'solar:star-bold-duotone' },
 ];
 
 interface FormValues {
     campaignName: string;
+    link: string;
     budget: number;
     currency: string;
     startDate: Date;
@@ -124,11 +125,11 @@ const getMediaUrl = (mediaPath: string | null) => {
 };
 
 export default function CampaignNewEditForm({
-                                                currentCampaign,
-                                                isEdit = false,
-                                            }: CampaignNewEditFormProps) {
+    currentCampaign,
+    isEdit = false,
+}: CampaignNewEditFormProps) {
     const navigate = useNavigate();
-    const {enqueueSnackbar} = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
 
 
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -141,6 +142,7 @@ export default function CampaignNewEditForm({
 
         return Yup.object().shape({
             campaignName: Yup.string().required('Campaign name is required'),
+            link: Yup.string().url('Enter a valid URL').nullable(),
             budget: Yup.number()
                 .required('Budget is required')
                 .min(100, 'Minimum budget is 100')
@@ -167,8 +169,8 @@ export default function CampaignNewEditForm({
             ),
             displayDuration: Yup.number().oneOf([5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55], 'Select display time on monitor'),
             contentType: Yup.string().oneOf(['video', 'image'], 'Select content type'),
-            contentFiles: Yup.array().test('content-files-required', (value, {parent, createError}) => {
-                const {contentType} = parent;
+            contentFiles: Yup.array().test('content-files-required', (value, { parent, createError }) => {
+                const { contentType } = parent;
 
                 if (contentType === 'video' || contentType === 'image') {
 
@@ -177,7 +179,7 @@ export default function CampaignNewEditForm({
 
 
                     if (!hasNewFiles && !hasExistingContent) {
-                        return createError({message: `Upload ${contentType === 'video' ? 'video' : 'image'}`});
+                        return createError({ message: `Upload ${contentType === 'video' ? 'video' : 'image'}` });
                     }
                 }
 
@@ -189,6 +191,7 @@ export default function CampaignNewEditForm({
     const defaultValues = useMemo(
         () => ({
             campaignName: currentCampaign?.campaign_name || '',
+            link: currentCampaign?.link || '',
             budget: currentCampaign?.budget || 1000,
             currency: currentCampaign?.currency || 'USD',
             startDate: currentCampaign?.start_date ? new Date(currentCampaign.start_date) : new Date(),
@@ -221,7 +224,7 @@ export default function CampaignNewEditForm({
         setValue,
         reset,
         handleSubmit,
-        formState: {isSubmitting, errors},
+        formState: { isSubmitting, errors },
     } = methods;
 
     const values = watch();
@@ -260,20 +263,20 @@ export default function CampaignNewEditForm({
     useEffect(() => {
         if (currentCampaign) {
             const scheduleValue = convertBackendScheduleToCalendar(currentCampaign.schedule);
-            setValue('schedule', scheduleValue, {shouldDirty: false, shouldTouch: false});
+            setValue('schedule', scheduleValue, { shouldDirty: false, shouldTouch: false });
         }
     }, [currentCampaign, setValue]);
 
 
-    const {regions, districts} = useRegionDistrictOptions(values.geoTarget.region);
+    const { regions, districts } = useRegionDistrictOptions(values.geoTarget.region);
 
 
-    const {data: interestsData} = useApiQuery<Array<{ id: number; name: string; slug: string }>>({
+    const { data: interestsData } = useApiQuery<Array<{ id: number; name: string; slug: string }>>({
         url: API_ENDPOINTS.interest.list,
     });
 
 
-    const {data: venueTypesData} = useApiQuery<Array<{ id: number; name: string; slug: string; is_active: boolean }>>({
+    const { data: venueTypesData } = useApiQuery<Array<{ id: number; name: string; slug: string; is_active: boolean }>>({
         url: API_ENDPOINTS.venueType.list,
         params: {
             lang: 'uz',
@@ -283,20 +286,20 @@ export default function CampaignNewEditForm({
 
 
     const availableInterests = useMemo(() =>
-            interestsData?.map(interest => interest.name) || [],
+        interestsData?.map(interest => interest.name) || [],
         [interestsData]
     );
 
     const availableVenueTypes = useMemo(() =>
-            venueTypesData?.filter(vt => vt.is_active) || [],
+        venueTypesData?.filter(vt => vt.is_active) || [],
         [venueTypesData]
     );
 
 
     const interestIds = useMemo(() =>
-            values.interests
-                .map(interestName => interestsData?.find(interest => interest.name === interestName)?.id)
-                .filter(id => id !== undefined) as number[],
+        values.interests
+            .map(interestName => interestsData?.find(interest => interest.name === interestName)?.id)
+            .filter(id => id !== undefined) as number[],
         [values.interests, interestsData]
     );
 
@@ -326,55 +329,55 @@ export default function CampaignNewEditForm({
     }, [values.budget, summary.data?.screens_count, summary.data?.cpm]);
 
 
-    const {mutate: createCampaign, loading: createLoading} = useApiMutation<IAdsManager, any>({
+    const { mutate: createCampaign, loading: createLoading } = useApiMutation<IAdsManager, any>({
         url: API_ENDPOINTS.adsManager.create,
         method: 'POST',
         onSuccess: () => {
-            enqueueSnackbar('Campaign created successfully!', {variant: 'success'});
+            enqueueSnackbar('Campaign created successfully!', { variant: 'success' });
             navigate(paths.dashboard.adsManager);
         },
         onError: (error) => {
             console.error('Error creating campaign:', error);
-            enqueueSnackbar('Error creating campaign', {variant: 'error'});
+            enqueueSnackbar('Error creating campaign', { variant: 'error' });
         },
     });
 
 
-    const {mutate: updateCampaign, loading: updateLoading} = useApiMutation<IAdsManager, any>({
+    const { mutate: updateCampaign, loading: updateLoading } = useApiMutation<IAdsManager, any>({
         url: API_ENDPOINTS.adsManager.update(currentCampaign?.id || ''),
         method: 'PUT',
         onSuccess: () => {
-            enqueueSnackbar('Campaign updated successfully!', {variant: 'success'});
+            enqueueSnackbar('Campaign updated successfully!', { variant: 'success' });
             navigate(paths.dashboard.adsManager);
         },
         onError: (error) => {
             console.error('Error updating campaign:', error);
-            enqueueSnackbar('Error updating campaign', {variant: 'error'});
+            enqueueSnackbar('Error updating campaign', { variant: 'error' });
         },
     });
 
 
     const selectedRegion = useMemo(() =>
-            regions.find(r => r.value === values.geoTarget.region),
+        regions.find(r => r.value === values.geoTarget.region),
         [regions, values.geoTarget.region]
     );
 
     const selectedDistrict = useMemo(() =>
-            districts.find(d => d.value === values.geoTarget.district),
+        districts.find(d => d.value === values.geoTarget.district),
         [districts, values.geoTarget.district]
     );
 
 
     const handleDropContentFiles = useCallback((acceptedFiles: File[]) => {
-        setValue('contentFiles', acceptedFiles, {shouldValidate: true});
+        setValue('contentFiles', acceptedFiles, { shouldValidate: true });
     }, [setValue]);
 
     const handleRemoveContentFile = useCallback((inputFile: CustomFile | string) => {
-        setValue('contentFiles', [], {shouldValidate: true});
+        setValue('contentFiles', [], { shouldValidate: true });
     }, [setValue]);
 
     const handleRemoveAllContentFiles = useCallback(() => {
-        setValue('contentFiles', [], {shouldValidate: true});
+        setValue('contentFiles', [], { shouldValidate: true });
     }, [setValue]);
 
     const onSubmit = useCallback(
@@ -431,6 +434,9 @@ export default function CampaignNewEditForm({
 
                     const formData = new FormData();
                     formData.append('campaign_name', data.campaignName);
+                    if (data.link) {
+                        formData.append('link', data.link);
+                    }
                     formData.append('budget', data.budget.toString());
                     formData.append('currency', data.currency);
                     formData.append('start_date', data.startDate?.toISOString() || '');
@@ -469,6 +475,7 @@ export default function CampaignNewEditForm({
 
                     payload = {
                         campaign_name: data.campaignName,
+                        link: data.link,
                         budget: data.budget,
                         currency: data.currency,
                         start_date: data.startDate?.toISOString() || '',
@@ -495,7 +502,7 @@ export default function CampaignNewEditForm({
                 }
             } catch (error) {
                 console.error('❌ Error saving campaign:', error);
-                enqueueSnackbar('Error saving campaign', {variant: 'error'});
+                enqueueSnackbar('Error saving campaign', { variant: 'error' });
             }
         },
         [enqueueSnackbar, isEdit, createCampaign, updateCampaign, interestsData]
@@ -504,13 +511,13 @@ export default function CampaignNewEditForm({
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={3}>
-                {}
+                { }
                 {Object.keys(errors).length > 0 && (
                     <Alert severity="error">
                         <Typography variant="subtitle2" gutterBottom>
                             Please fix the following errors:
                         </Typography>
-                        <Box component="ul" sx={{pl: 2, m: 0}}>
+                        <Box component="ul" sx={{ pl: 2, m: 0 }}>
                             {Object.entries(errors).map(([key, error]) => {
                                 const errorMessage = error && typeof error === 'object' && 'message' in error
                                     ? (error as any).message
@@ -526,10 +533,10 @@ export default function CampaignNewEditForm({
                 )}
 
                 {/* Basic Information */}
-                <Card sx={{p: 3}}>
+                <Card sx={{ p: 3 }}>
                     <Stack spacing={3}>
                         <Stack direction="row" alignItems="center" spacing={1}>
-                            <Iconify icon="solar:info-circle-bold-duotone" width={20}/>
+                            <Iconify icon="solar:info-circle-bold-duotone" width={20} />
                             <Typography variant="h6">Basic Information</Typography>
                         </Stack>
 
@@ -537,6 +544,19 @@ export default function CampaignNewEditForm({
                             name="campaignName"
                             label="Campaign Name"
                             placeholder="Enter campaign name"
+                        />
+
+                        <RHFTextField
+                            name="link"
+                            label="Website URL"
+                            placeholder="https://example.com"
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Iconify icon="solar:global-bold-duotone" width={24} sx={{ color: 'text.disabled' }} />
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                     </Stack>
                 </Card>
@@ -550,10 +570,10 @@ export default function CampaignNewEditForm({
                             <Grid container spacing={3}>
                                 {/* Dates Section */}
                                 <Grid item xs={12} md={6}>
-                                    <Card sx={{p: 3}}>
+                                    <Card sx={{ p: 3 }}>
                                         <Stack spacing={3}>
                                             <Stack direction="row" alignItems="center" spacing={1}>
-                                                <Iconify icon="solar:calendar-bold-duotone" width={20}/>
+                                                <Iconify icon="solar:calendar-bold-duotone" width={20} />
                                                 <Typography variant="h6">Placement Period</Typography>
                                             </Stack>
 
@@ -562,7 +582,7 @@ export default function CampaignNewEditForm({
                                                     <Controller
                                                         name="startDate"
                                                         control={control}
-                                                        render={({field, fieldState: {error}}) => (
+                                                        render={({ field, fieldState: { error } }) => (
                                                             <DatePicker
                                                                 label="Start Date"
                                                                 value={field.value}
@@ -582,7 +602,7 @@ export default function CampaignNewEditForm({
                                                     <Controller
                                                         name="endDate"
                                                         control={control}
-                                                        render={({field, fieldState: {error}}) => (
+                                                        render={({ field, fieldState: { error } }) => (
                                                             <DatePicker
                                                                 label="End Date"
                                                                 value={field.value}
@@ -606,10 +626,10 @@ export default function CampaignNewEditForm({
 
                                 {/* Content Upload Section */}
                                 <Grid item xs={12} md={6}>
-                                    <Card sx={{p: 3}}>
+                                    <Card sx={{ p: 3 }}>
                                         <Stack spacing={3}>
                                             <Stack direction="row" alignItems="center" spacing={1}>
-                                                <Iconify icon="solar:file-bold-duotone" width={20}/>
+                                                <Iconify icon="solar:file-bold-duotone" width={20} />
                                                 <Typography variant="h6">Content</Typography>
                                                 {hasRelevantContent ? (
                                                     <Chip
@@ -617,7 +637,7 @@ export default function CampaignNewEditForm({
                                                         color="success"
                                                         size="small"
                                                         variant="soft"
-                                                        icon={<Iconify icon="solar:check-circle-bold" width={14}/>}
+                                                        icon={<Iconify icon="solar:check-circle-bold" width={14} />}
                                                     />
                                                 ) : (
                                                     <Chip
@@ -625,7 +645,7 @@ export default function CampaignNewEditForm({
                                                         color="warning"
                                                         size="small"
                                                         variant="soft"
-                                                        icon={<Iconify icon="solar:danger-circle-bold" width={14}/>}
+                                                        icon={<Iconify icon="solar:danger-circle-bold" width={14} />}
                                                     />
                                                 )}
                                             </Stack>
@@ -633,7 +653,7 @@ export default function CampaignNewEditForm({
                                             <Controller
                                                 name="contentType"
                                                 control={control}
-                                                render={({field, fieldState: {error}}) => (
+                                                render={({ field, fieldState: { error } }) => (
                                                     <TextField
                                                         {...field}
                                                         select
@@ -659,10 +679,10 @@ export default function CampaignNewEditForm({
                                                 )}
                                             />
 
-                                            {}
+                                            { }
                                             {values.contentType === 'video' ? (
                                                 <>
-                                                    {}
+                                                    { }
                                                     {shouldShowExistingVideo && (
                                                         <Box
                                                             sx={{
@@ -674,20 +694,20 @@ export default function CampaignNewEditForm({
                                                             }}
                                                         >
                                                             <Stack spacing={2}>
-                                                                {}
+                                                                { }
                                                                 <Stack direction="row" alignItems="center" spacing={2}>
                                                                     <Iconify
                                                                         icon="solar:video-library-bold"
                                                                         width={24}
-                                                                        sx={{color: 'success.main'}}
+                                                                        sx={{ color: 'success.main' }}
                                                                     />
-                                                                    <Box sx={{flex: 1}}>
+                                                                    <Box sx={{ flex: 1 }}>
                                                                         <Typography variant="subtitle2"
-                                                                                    color="success.darker">
+                                                                            color="success.darker">
                                                                             Video uploaded
                                                                         </Typography>
                                                                         <Typography variant="body2"
-                                                                                    color="success.dark">
+                                                                            color="success.dark">
                                                                             {currentCampaign.videos?.[0]?.title || 'Video file'}
                                                                             {currentCampaign.videos?.[0]?.file_size &&
                                                                                 ` (${((currentCampaign.videos?.[0]?.file_size || 0) / 1024 / 1024).toFixed(2)} MB)`
@@ -700,11 +720,11 @@ export default function CampaignNewEditForm({
                                                                         size="small"
                                                                         variant="soft"
                                                                         icon={<Iconify icon="solar:cloud-check-bold"
-                                                                                       width={16}/>}
+                                                                            width={16} />}
                                                                     />
                                                                 </Stack>
 
-                                                                {}
+                                                                { }
                                                                 {currentCampaign.videos?.[0]?.video && (
                                                                     <Box
                                                                         sx={{
@@ -724,9 +744,9 @@ export default function CampaignNewEditForm({
                                                                         >
                                                                             <source
                                                                                 src={getMediaUrl(currentCampaign.videos?.[0]?.video || null)}
-                                                                                type="video/mp4"/>
+                                                                                type="video/mp4" />
                                                                             <track kind="captions" srcLang="ru"
-                                                                                   label="Russian"/>
+                                                                                label="Russian" />
                                                                             Your browser does not support video.
                                                                         </video>
                                                                     </Box>
@@ -736,7 +756,7 @@ export default function CampaignNewEditForm({
                                                         </Box>
                                                     )}
 
-                                                    {}
+                                                    { }
                                                     {shouldShowNewVideo && (
                                                         <Box
                                                             sx={{
@@ -748,16 +768,16 @@ export default function CampaignNewEditForm({
                                                             }}
                                                         >
                                                             <Stack spacing={2}>
-                                                                {}
+                                                                { }
                                                                 <Stack direction="row" alignItems="center" spacing={2}>
                                                                     <Iconify
                                                                         icon="solar:video-library-bold"
                                                                         width={24}
-                                                                        sx={{color: 'info.main'}}
+                                                                        sx={{ color: 'info.main' }}
                                                                     />
-                                                                    <Box sx={{flex: 1}}>
+                                                                    <Box sx={{ flex: 1 }}>
                                                                         <Typography variant="subtitle2"
-                                                                                    color="info.darker">
+                                                                            color="info.darker">
                                                                             New video uploaded
                                                                         </Typography>
                                                                         <Typography variant="body2" color="info.dark">
@@ -769,14 +789,14 @@ export default function CampaignNewEditForm({
                                                                         variant="outlined"
                                                                         color="error"
                                                                         startIcon={<Iconify
-                                                                            icon="solar:trash-bin-minimalistic-bold"/>}
+                                                                            icon="solar:trash-bin-minimalistic-bold" />}
                                                                         onClick={() => setValue('contentFiles', [])}
                                                                     >
                                                                         Delete
                                                                     </Button>
                                                                 </Stack>
 
-                                                                {}
+                                                                { }
                                                                 <Box
                                                                     sx={{
                                                                         display: 'flex',
@@ -790,7 +810,7 @@ export default function CampaignNewEditForm({
                                                                 >
                                                                     <Stack alignItems="center" spacing={1}>
                                                                         <Iconify icon="solar:play-circle-bold"
-                                                                                 width={48}/>
+                                                                            width={48} />
                                                                         <Typography variant="body2">
                                                                             Video will be uploaded on save
                                                                         </Typography>
@@ -803,19 +823,19 @@ export default function CampaignNewEditForm({
                                                         </Box>
                                                     )}
 
-                                                    {}
+                                                    { }
                                                     {!shouldShowExistingVideo && !shouldShowNewVideo && (
                                                         <>
                                                             <RHFUpload
                                                                 name="contentFiles"
                                                                 multiple={false}
                                                                 maxSize={52428800}
-                                                                accept={{'video/*': []}}
+                                                                accept={{ 'video/*': [] }}
                                                                 helperText="MP4, MOV, AVI up to 50MB. Only one video file"
                                                                 onDrop={handleDropContentFiles}
                                                                 onRemove={handleRemoveContentFile}
                                                                 onRemoveAll={handleRemoveAllContentFiles}
-                                                                sx={{minHeight: 100}}
+                                                                sx={{ minHeight: 100 }}
                                                             />
                                                             <Box
                                                                 sx={{
@@ -839,7 +859,7 @@ export default function CampaignNewEditForm({
                                             ) : (
 
                                                 <>
-                                                    {}
+                                                    { }
                                                     {shouldShowExistingImages && (
                                                         <Box
                                                             sx={{
@@ -851,20 +871,20 @@ export default function CampaignNewEditForm({
                                                             }}
                                                         >
                                                             <Stack spacing={2}>
-                                                                {}
+                                                                { }
                                                                 <Stack direction="row" alignItems="center" spacing={2}>
                                                                     <Iconify
                                                                         icon="solar:image-bold"
                                                                         width={24}
-                                                                        sx={{color: 'success.main'}}
+                                                                        sx={{ color: 'success.main' }}
                                                                     />
-                                                                    <Box sx={{flex: 1}}>
+                                                                    <Box sx={{ flex: 1 }}>
                                                                         <Typography variant="subtitle2"
-                                                                                    color="success.darker">
+                                                                            color="success.darker">
                                                                             Images uploaded
                                                                         </Typography>
                                                                         <Typography variant="body2"
-                                                                                    color="success.dark">
+                                                                            color="success.dark">
                                                                             {currentCampaign.images?.length} images
                                                                         </Typography>
                                                                     </Box>
@@ -874,11 +894,11 @@ export default function CampaignNewEditForm({
                                                                         size="small"
                                                                         variant="soft"
                                                                         icon={<Iconify icon="solar:cloud-check-bold"
-                                                                                       width={16}/>}
+                                                                            width={16} />}
                                                                     />
                                                                 </Stack>
 
-                                                                {}
+                                                                { }
                                                                 <Box
                                                                     sx={{
                                                                         display: 'grid',
@@ -920,19 +940,19 @@ export default function CampaignNewEditForm({
                                                                                     }}
                                                                                 >
                                                                                     <Iconify icon="solar:image-bold"
-                                                                                             width={32}/>
+                                                                                        width={32} />
                                                                                 </Box>
                                                                             )}
                                                                         </Box>
                                                                     ))}
                                                                 </Box>
 
-                                                                {}
+                                                                { }
                                                                 <Button
                                                                     fullWidth
                                                                     variant="outlined"
                                                                     color="primary"
-                                                                    startIcon={<Iconify icon="solar:refresh-bold"/>}
+                                                                    startIcon={<Iconify icon="solar:refresh-bold" />}
                                                                     onClick={() => {
 
                                                                         setValue('contentFiles', []);
@@ -944,7 +964,7 @@ export default function CampaignNewEditForm({
                                                         </Box>
                                                     )}
 
-                                                    {}
+                                                    { }
                                                     {shouldShowNewImages && (
                                                         <Box
                                                             sx={{
@@ -956,16 +976,16 @@ export default function CampaignNewEditForm({
                                                             }}
                                                         >
                                                             <Stack spacing={2}>
-                                                                {}
+                                                                { }
                                                                 <Stack direction="row" alignItems="center" spacing={2}>
                                                                     <Iconify
                                                                         icon="solar:image-bold"
                                                                         width={24}
-                                                                        sx={{color: 'info.main'}}
+                                                                        sx={{ color: 'info.main' }}
                                                                     />
-                                                                    <Box sx={{flex: 1}}>
+                                                                    <Box sx={{ flex: 1 }}>
                                                                         <Typography variant="subtitle2"
-                                                                                    color="info.darker">
+                                                                            color="info.darker">
                                                                             New images uploaded
                                                                         </Typography>
                                                                         <Typography variant="body2" color="info.dark">
@@ -977,14 +997,14 @@ export default function CampaignNewEditForm({
                                                                         variant="outlined"
                                                                         color="error"
                                                                         startIcon={<Iconify
-                                                                            icon="solar:trash-bin-minimalistic-bold"/>}
+                                                                            icon="solar:trash-bin-minimalistic-bold" />}
                                                                         onClick={() => setValue('contentFiles', [])}
                                                                     >
                                                                         Remove all
                                                                     </Button>
                                                                 </Stack>
 
-                                                                {}
+                                                                { }
                                                                 <Box
                                                                     sx={{
                                                                         display: 'grid',
@@ -1021,19 +1041,19 @@ export default function CampaignNewEditForm({
                                                         </Box>
                                                     )}
 
-                                                    {}
+                                                    { }
                                                     {!shouldShowExistingImages && !shouldShowNewImages && (
                                                         <>
                                                             <RHFUpload
                                                                 name="contentFiles"
                                                                 multiple
                                                                 maxSize={10485760}
-                                                                accept={{'image/*': []}}
+                                                                accept={{ 'image/*': [] }}
                                                                 helperText="JPG, PNG, GIF up to 10MB. Multiple images allowed"
                                                                 onDrop={handleDropContentFiles}
                                                                 onRemove={handleRemoveContentFile}
                                                                 onRemoveAll={handleRemoveAllContentFiles}
-                                                                sx={{minHeight: 100}}
+                                                                sx={{ minHeight: 100 }}
                                                             />
                                                             <Box
                                                                 sx={{
@@ -1060,15 +1080,15 @@ export default function CampaignNewEditForm({
                                 </Grid>
                             </Grid>
 
-                            {}
-                            <Card sx={{p: 3}}>
+                            { }
+                            <Card sx={{ p: 3 }}>
                                 <Stack spacing={3}>
                                     <Stack direction="row" alignItems="center" spacing={1}>
-                                        <Iconify icon="solar:map-point-bold-duotone" width={20}/>
+                                        <Iconify icon="solar:map-point-bold-duotone" width={20} />
                                         <Typography variant="h6">Geo-targeting</Typography>
                                     </Stack>
 
-                                    {}
+                                    { }
                                     <RegionDistrictSelect
                                         regionFieldName="geoTarget.region"
                                         districtFieldName="geoTarget.district"
@@ -1090,7 +1110,7 @@ export default function CampaignNewEditForm({
                                                 bgcolor: 'info.lighter',
                                             }}
                                         >
-                                            <Iconify icon="solar:map-point-bold" width={20} color="info.main"/>
+                                            <Iconify icon="solar:map-point-bold" width={20} color="info.main" />
                                             <Typography variant="body2" color="info.darker">
                                                 <strong>Target
                                                     location:</strong> {selectedRegion?.label} → {selectedDistrict?.label}
@@ -1101,21 +1121,21 @@ export default function CampaignNewEditForm({
                                 </Stack>
                             </Card>
 
-                            {}
+                            { }
                             <Grid container spacing={3}>
                                 <Grid item xs={12} md={6}>
-                                    {}
-                                    <Card sx={{p: 3}}>
+                                    { }
+                                    <Card sx={{ p: 3 }}>
                                         <Stack spacing={3}>
                                             <Stack direction="row" alignItems="center" spacing={1}>
-                                                <Iconify icon="solar:clock-circle-bold-duotone" width={20}/>
+                                                <Iconify icon="solar:clock-circle-bold-duotone" width={20} />
                                                 <Typography variant="h6">Display Time</Typography>
                                             </Stack>
 
                                             <Controller
                                                 name="displayDuration"
                                                 control={control}
-                                                render={({field, fieldState: {error}}) => (
+                                                render={({ field, fieldState: { error } }) => (
                                                     <TextField
                                                         {...field}
                                                         select
@@ -1127,7 +1147,7 @@ export default function CampaignNewEditForm({
                                                         {DISPLAY_DURATION_OPTIONS.map((option) => (
                                                             <MenuItem key={option.value} value={option.value}>
                                                                 <Stack direction="row" spacing={1} alignItems="center">
-                                                                    <Iconify icon="solar:clock-circle-bold" width={16}/>
+                                                                    <Iconify icon="solar:clock-circle-bold" width={16} />
                                                                     <Typography>{option.label}</Typography>
                                                                 </Stack>
                                                             </MenuItem>
@@ -1140,22 +1160,22 @@ export default function CampaignNewEditForm({
                                 </Grid>
 
                                 <Grid item xs={12} md={6}>
-                                    {}
-                                    <Card sx={{p: 3, position: 'relative'}}>
+                                    { }
+                                    <Card sx={{ p: 3, position: 'relative' }}>
                                         <Stack spacing={3}>
                                             <Stack direction="row" alignItems="center" spacing={1}>
-                                                <Iconify icon="solar:user-id-bold-duotone" width={20}/>
+                                                <Iconify icon="solar:user-id-bold-duotone" width={20} />
                                                 <Typography variant="h6">Age Restriction</Typography>
                                                 <Chip
                                                     label="New"
                                                     color="success"
                                                     size="small"
                                                     variant="soft"
-                                                    sx={{ml: 'auto'}}
+                                                    sx={{ ml: 'auto' }}
                                                 />
                                             </Stack>
 
-                                            <Box sx={{px: 2, opacity: 0.6}}>
+                                            <Box sx={{ px: 2, opacity: 0.6 }}>
                                                 <Stack direction="row" justifyContent="space-between" mb={2}>
                                                     <Typography variant="body2" color="text.secondary">
                                                         Audience Age
@@ -1168,7 +1188,7 @@ export default function CampaignNewEditForm({
                                                 <Controller
                                                     name="ageRange"
                                                     control={control}
-                                                    render={({field}) => (
+                                                    render={({ field }) => (
                                                         <Slider
                                                             {...field}
                                                             value={field.value}
@@ -1178,13 +1198,13 @@ export default function CampaignNewEditForm({
                                                             max={65}
                                                             // disabled
                                                             marks={[
-                                                                {value: 13, label: '13'},
-                                                                {value: 18, label: '18'},
-                                                                {value: 25, label: '25'},
-                                                                {value: 35, label: '35'},
-                                                                {value: 45, label: '45'},
-                                                                {value: 55, label: '55'},
-                                                                {value: 65, label: '65+'},
+                                                                { value: 13, label: '13' },
+                                                                { value: 18, label: '18' },
+                                                                { value: 25, label: '25' },
+                                                                { value: 35, label: '35' },
+                                                                { value: 45, label: '45' },
+                                                                { value: 55, label: '55' },
+                                                                { value: 65, label: '65+' },
                                                             ]}
                                                             sx={{
                                                                 '& .MuiSlider-thumb': {
@@ -1207,14 +1227,14 @@ export default function CampaignNewEditForm({
                                 </Grid>
                             </Grid>
 
-                            {}
+                            { }
                             <Grid container spacing={3}>
-                                {}
+                                { }
                                 <Grid item xs={12} md={6}>
-                                    <Card sx={{p: 2.5}}>
+                                    <Card sx={{ p: 2.5 }}>
                                         <Stack spacing={2}>
                                             <Stack direction="row" alignItems="center" spacing={1}>
-                                                <Iconify icon="solar:users-group-rounded-bold-duotone" width={18}/>
+                                                <Iconify icon="solar:users-group-rounded-bold-duotone" width={18} />
                                                 <Typography variant="subtitle1">Audience Interests</Typography>
                                             </Stack>
 
@@ -1225,7 +1245,7 @@ export default function CampaignNewEditForm({
                                                 multiple
                                                 freeSolo
                                                 options={availableInterests}
-                                                ChipProps={{size: 'small'}}
+                                                ChipProps={{ size: 'small' }}
                                             />
 
                                             {values.interests.length > 0 && (
@@ -1245,12 +1265,12 @@ export default function CampaignNewEditForm({
                                     </Card>
                                 </Grid>
 
-                                {}
+                                { }
                                 <Grid item xs={12} md={6}>
-                                    <Card sx={{p: 2.5}}>
+                                    <Card sx={{ p: 2.5 }}>
                                         <Stack spacing={2}>
                                             <Stack direction="row" alignItems="center" spacing={1}>
-                                                <Iconify icon="solar:buildings-2-bold-duotone" width={18}/>
+                                                <Iconify icon="solar:buildings-2-bold-duotone" width={18} />
                                                 <Typography variant="subtitle1">Venue Types</Typography>
                                             </Stack>
 
@@ -1263,10 +1283,10 @@ export default function CampaignNewEditForm({
                                                 getOptionLabel={(option) =>
                                                     availableVenueTypes.find((venue) => venue.id === option)?.name || String(option)
                                                 }
-                                                ChipProps={{size: 'small'}}
+                                                ChipProps={{ size: 'small' }}
                                             />
 
-                                            {}
+                                            { }
                                             <Grid container spacing={1}>
                                                 {availableVenueTypes.map((venue) => {
                                                     const isSelected = values.venueTypes.includes(venue.id);
@@ -1303,7 +1323,7 @@ export default function CampaignNewEditForm({
                                                                         variant="caption"
                                                                         textAlign="center"
                                                                         color={isSelected ? 'primary.main' : 'text.secondary'}
-                                                                        sx={{fontSize: '0.7rem', lineHeight: 1.2}}
+                                                                        sx={{ fontSize: '0.7rem', lineHeight: 1.2 }}
                                                                     >
                                                                         {venue.name}
                                                                     </Typography>
@@ -1320,28 +1340,28 @@ export default function CampaignNewEditForm({
                         </Stack>
                     </Grid>
 
-                    {}
+                    { }
                     <Grid item xs={12} md={4}>
-                        {}
+                        { }
                         <Box
                             sx={{
-                                position: {xs: 'static', md: 'sticky'},
-                                top: {md: 80},
-                                zIndex: {md: 10},
-                                alignSelf: {md: 'flex-start'},
+                                position: { xs: 'static', md: 'sticky' },
+                                top: { md: 80 },
+                                zIndex: { md: 10 },
+                                alignSelf: { md: 'flex-start' },
                             }}
                         >
-                            <Card sx={{p: 3}}>
+                            <Card sx={{ p: 3 }}>
                                 <Stack spacing={3}>
                                     <Stack direction="row" alignItems="center" spacing={1}>
-                                        <Iconify icon="solar:dollar-minimalistic-bold-duotone" width={20}/>
+                                        <Iconify icon="solar:dollar-minimalistic-bold-duotone" width={20} />
                                         <Typography variant="h6">Budget</Typography>
                                     </Stack>
 
                                     <Controller
                                         name="currency"
                                         control={control}
-                                        render={({field, fieldState: {error}}) => (
+                                        render={({ field, fieldState: { error } }) => (
                                             <TextField
                                                 {...field}
                                                 select
@@ -1378,7 +1398,7 @@ export default function CampaignNewEditForm({
                                         }}
                                     />
 
-                                    {}
+                                    { }
                                     <Box
                                         sx={{
                                             p: 2.5,
@@ -1390,7 +1410,7 @@ export default function CampaignNewEditForm({
                                     >
                                         <Stack spacing={2}>
                                             <Stack direction="row" alignItems="center" spacing={1}>
-                                                <Iconify icon="solar:chart-2-bold-duotone" width={20}/>
+                                                <Iconify icon="solar:chart-2-bold-duotone" width={20} />
                                                 <Typography variant="subtitle2" color="primary.darker">
                                                     <strong>Performance Forecast</strong>
                                                 </Typography>
@@ -1429,11 +1449,11 @@ export default function CampaignNewEditForm({
                     </Grid>
                 </Grid>
 
-                {}
+                { }
                 <Controller
                     name="schedule"
                     control={control}
-                    render={({field, fieldState: {error}}) => (
+                    render={({ field, fieldState: { error } }) => (
                         <Dialog
                             open={isCalendarOpen}
                             onClose={() => setIsCalendarOpen(false)}
@@ -1458,7 +1478,7 @@ export default function CampaignNewEditForm({
                                 borderColor: 'divider',
                             }}>
                                 <Stack direction="row" alignItems="center" spacing={1}>
-                                    <Iconify icon="solar:calendar-bold-duotone" width={20}/>
+                                    <Iconify icon="solar:calendar-bold-duotone" width={20} />
                                     <Typography variant="h6">Ad Display Schedule</Typography>
                                 </Stack>
                             </DialogTitle>
@@ -1473,14 +1493,14 @@ export default function CampaignNewEditForm({
                                     flexDirection: 'column',
                                 }}
                             >
-                                <Stack spacing={2} sx={{flex: 1}}>
+                                <Stack spacing={2} sx={{ flex: 1 }}>
                                     {error && (
-                                        <Alert severity="error" sx={{mb: 1}}>
+                                        <Alert severity="error" sx={{ mb: 1 }}>
                                             <Typography variant="body2">{error.message}</Typography>
                                         </Alert>
                                     )}
 
-                                    <Box sx={{flex: 1, minHeight: 0}}>
+                                    <Box sx={{ flex: 1, minHeight: 0 }}>
                                         <WeeklyScheduleCalendar
                                             key={`${currentCampaign?.id || 'new-campaign'}-${JSON.stringify(field.value || {})}`}
                                             value={field.value || {}}
@@ -1521,7 +1541,7 @@ export default function CampaignNewEditForm({
                                 <Button
                                     variant="contained"
                                     onClick={() => setIsCalendarOpen(false)}
-                                    startIcon={<Iconify icon="solar:check-circle-bold"/>}
+                                    startIcon={<Iconify icon="solar:check-circle-bold" />}
                                 >
                                     Done
                                 </Button>
@@ -1530,7 +1550,7 @@ export default function CampaignNewEditForm({
                     )}
                 />
 
-                {}
+                { }
                 <Fab
                     color="primary"
                     aria-label="open calendar"
@@ -1546,18 +1566,18 @@ export default function CampaignNewEditForm({
                     }}
                     onClick={() => setIsCalendarOpen(true)}
                 >
-                    <Iconify icon="solar:calendar-bold-duotone" width={24}/>
+                    <Iconify icon="solar:calendar-bold-duotone" width={24} />
                 </Fab>
 
-                {}
-                <Card sx={{p: 3}}>
+                { }
+                <Card sx={{ p: 3 }}>
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                         <Button
                             size="large"
                             variant="outlined"
                             color="inherit"
                             onClick={() => navigate(paths.dashboard.adsManager)}
-                            startIcon={<Iconify icon="solar:arrow-left-bold"/>}
+                            startIcon={<Iconify icon="solar:arrow-left-bold" />}
                         >
                             Cancel
                         </Button>
@@ -1566,7 +1586,7 @@ export default function CampaignNewEditForm({
                             <Button
                                 size="large"
                                 variant="outlined"
-                                startIcon={<Iconify icon="solar:diskette-bold"/>}
+                                startIcon={<Iconify icon="solar:diskette-bold" />}
                             >
                                 Save as draft
                             </Button>
@@ -1574,7 +1594,7 @@ export default function CampaignNewEditForm({
                                 size="large"
                                 type="submit"
                                 variant="contained"
-                                startIcon={<Iconify icon="solar:rocket-2-bold"/>}
+                                startIcon={<Iconify icon="solar:rocket-2-bold" />}
                                 disabled={isSubmitting || createLoading || updateLoading}
                             >
                                 {isEdit ? 'Update Campaign' : 'Launch Campaign'}

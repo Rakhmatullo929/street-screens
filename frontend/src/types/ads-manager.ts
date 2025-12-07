@@ -24,6 +24,7 @@ export interface IVenueType {
 export interface IAdsManager {
   id: number;
   campaign_name: string;
+  link?: string;
   budget: number;
   currency: string;
   start_date: string;
@@ -115,6 +116,7 @@ export interface IAdsManagerListResponse {
 
 export interface IAdsManagerCreateUpdate {
   campaign_name: string;
+  link?: string;
   budget: number;
   currency: string;
   start_date: string;

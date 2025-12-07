@@ -37,13 +37,13 @@ export default function CampaignDetailsView() {
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  
+
   const handleError = useCallback((error: Error) => {
     enqueueSnackbar('Error loading campaign details', { variant: 'error' });
     console.error('Campaign details loading error:', error);
   }, [enqueueSnackbar]);
 
-  
+
   const {
     data: campaign,
     loading,
@@ -66,16 +66,16 @@ export default function CampaignDetailsView() {
     );
   }
 
-  
-  
 
-  
+
+
+
   const calendarSchedule = convertBackendScheduleToCalendar(campaign.schedule);
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
       <Stack spacing={3}>
-        {}
+        { }
         <Breadcrumbs>
           <Link
             color="inherit"
@@ -88,10 +88,10 @@ export default function CampaignDetailsView() {
           <Typography color="text.primary">Campaign Details</Typography>
         </Breadcrumbs>
 
-        {}
-        <Stack 
-          direction="row" 
-          alignItems="center" 
+        { }
+        <Stack
+          direction="row"
+          alignItems="center"
           justifyContent="space-between"
           sx={{
             p: 3,
@@ -102,9 +102,9 @@ export default function CampaignDetailsView() {
           }}
         >
           <Stack spacing={1.5}>
-            <Typography 
-              variant="h4" 
-              sx={{ 
+            <Typography
+              variant="h4"
+              sx={{
                 fontWeight: 700,
                 background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
                 backgroundClip: 'text',
@@ -119,7 +119,7 @@ export default function CampaignDetailsView() {
                 label={campaign.status_display}
                 color={getStatusColor(campaign.status)}
                 size="medium"
-                sx={{ 
+                sx={{
                   fontWeight: 600,
                   height: 32,
                 }}
@@ -167,11 +167,11 @@ export default function CampaignDetailsView() {
           </Stack>
         </Stack>
 
-        {}
+        { }
         <Grid container spacing={3}>
           <Grid xs={12} md={3}>
-            <Card 
-              sx={{ 
+            <Card
+              sx={{
                 p: 3,
                 background: 'linear-gradient(135deg, rgba(255, 171, 0, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%)',
                 border: '1px solid',
@@ -222,8 +222,8 @@ export default function CampaignDetailsView() {
                   </Stack>
                   <LinearProgress
                     variant="indeterminate"
-                    sx={{ 
-                      height: 6, 
+                    sx={{
+                      height: 6,
                       borderRadius: 3,
                       bgcolor: 'rgba(255, 171, 0, 0.1)',
                       '& .MuiLinearProgress-bar': {
@@ -237,8 +237,8 @@ export default function CampaignDetailsView() {
           </Grid>
 
           <Grid xs={12} md={3}>
-            <Card 
-              sx={{ 
+            <Card
+              sx={{
                 p: 3,
                 background: 'linear-gradient(135deg, rgba(46, 125, 50, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%)',
                 border: '1px solid',
@@ -287,8 +287,8 @@ export default function CampaignDetailsView() {
           </Grid>
 
           <Grid xs={12} md={3}>
-            <Card 
-              sx={{ 
+            <Card
+              sx={{
                 p: 3,
                 background: 'linear-gradient(135deg, rgba(0, 184, 217, 0.1) 0%, rgba(0, 184, 217, 0.05) 100%)',
                 border: '1px solid',
@@ -336,8 +336,8 @@ export default function CampaignDetailsView() {
           </Grid>
 
           <Grid xs={12} md={3}>
-            <Card 
-              sx={{ 
+            <Card
+              sx={{
                 p: 3,
                 background: 'linear-gradient(135deg, rgba(25, 118, 210, 0.1) 0%, rgba(66, 165, 245, 0.05) 100%)',
                 border: '1px solid',
@@ -385,9 +385,9 @@ export default function CampaignDetailsView() {
           </Grid>
         </Grid>
 
-        {}
-        <Card 
-          sx={{ 
+        { }
+        <Card
+          sx={{
             p: 3,
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 250, 250, 0.9) 100%)',
             border: '1px solid',
@@ -396,9 +396,9 @@ export default function CampaignDetailsView() {
           }}
         >
           <Stack spacing={3}>
-            <Typography 
-              variant="h6" 
-              sx={{ 
+            <Typography
+              variant="h6"
+              sx={{
                 fontWeight: 700,
                 background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
                 backgroundClip: 'text',
@@ -432,6 +432,33 @@ export default function CampaignDetailsView() {
                       <Iconify icon="solar:file-bold-duotone" width={20} />
                       <Typography variant="body1">{campaign.campaign_name}</Typography>
                     </Stack>
+                  </Box>
+
+                  <Divider />
+
+                  <Box>
+                    <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                      Website URL
+                    </Typography>
+                    {campaign.link ? (
+                      <Link
+                        href={campaign.link}
+                        target="_blank"
+                        rel="noopener"
+                        color="primary"
+                        underline="hover"
+                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                      >
+                        <Iconify icon="solar:link-circle-bold-duotone" width={20} />
+                        <Typography variant="body1" noWrap sx={{ maxWidth: 300 }}>
+                          {campaign.link}
+                        </Typography>
+                      </Link>
+                    ) : (
+                      <Typography variant="body1" color="text.secondary" fontStyle="italic">
+                        Not specified
+                      </Typography>
+                    )}
                   </Box>
 
                   <Divider />
@@ -478,7 +505,7 @@ export default function CampaignDetailsView() {
                       Total Reach
                     </Typography>
                     <Typography variant="body1">
-                      - unique impressions
+                      23
                     </Typography>
                   </Box>
                 </Stack>
@@ -487,9 +514,9 @@ export default function CampaignDetailsView() {
           </Stack>
         </Card>
 
-        {}
-        <Card 
-          sx={{ 
+        { }
+        <Card
+          sx={{
             p: 3,
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 250, 250, 0.9) 100%)',
             border: '1px solid',
@@ -513,9 +540,9 @@ export default function CampaignDetailsView() {
               >
                 <Iconify icon="solar:users-group-rounded-bold-duotone" width={20} sx={{ color: 'white' }} />
               </Box>
-              <Typography 
-                variant="h6" 
-                sx={{ 
+              <Typography
+                variant="h6"
+                sx={{
                   fontWeight: 700,
                   background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
                   backgroundClip: 'text',
@@ -528,7 +555,7 @@ export default function CampaignDetailsView() {
             </Stack>
 
             <Grid container spacing={3}>
-              {}
+              { }
               <Grid xs={12} md={6}>
                 <Box
                   sx={{
@@ -560,7 +587,7 @@ export default function CampaignDetailsView() {
                 </Box>
               </Grid>
 
-              {}
+              { }
               {campaign.region && campaign.district && (
                 <Grid xs={12} md={6}>
                   <Box
@@ -582,7 +609,7 @@ export default function CampaignDetailsView() {
                         <Iconify icon="solar:map-point-bold-duotone" width={20} sx={{ color: 'info.main' }} />
                         <Typography variant="subtitle2">Geotargeting</Typography>
                       </Stack>
-                      
+
                       <Box
                         sx={{
                           p: 2,
@@ -612,7 +639,7 @@ export default function CampaignDetailsView() {
                 </Grid>
               )}
 
-              {}
+              { }
               {campaign.interests && campaign.interests.length > 0 && (
                 <Grid xs={12} md={6}>
                   <Box
@@ -644,7 +671,7 @@ export default function CampaignDetailsView() {
                 </Grid>
               )}
 
-              {}
+              { }
               {campaign.venue_types && campaign.venue_types.length > 0 && (
                 <Grid xs={12} md={6}>
                   <Box
@@ -679,10 +706,10 @@ export default function CampaignDetailsView() {
           </Stack>
         </Card>
 
-        {}
+        { }
         {campaign.schedule && Object.values(campaign.schedule).some(hours => Array.isArray(hours) && hours.length > 0) && (
-          <Card 
-            sx={{ 
+          <Card
+            sx={{
               p: 3,
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 250, 250, 0.9) 100%)',
               border: '1px solid',
@@ -707,9 +734,9 @@ export default function CampaignDetailsView() {
                   >
                     <Iconify icon="solar:clock-circle-bold-duotone" width={20} sx={{ color: 'white' }} />
                   </Box>
-                  <Typography 
-                    variant="h6" 
-                    sx={{ 
+                  <Typography
+                    variant="h6"
+                    sx={{
                       fontWeight: 700,
                       background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
                       backgroundClip: 'text',
@@ -732,9 +759,9 @@ export default function CampaignDetailsView() {
           </Card>
         )}
 
-        {}
-        <Card 
-          sx={{ 
+        { }
+        <Card
+          sx={{
             p: 3,
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 250, 250, 0.9) 100%)',
             border: '1px solid',
@@ -743,9 +770,9 @@ export default function CampaignDetailsView() {
           }}
         >
           <Stack spacing={3}>
-            <Typography 
-              variant="h6" 
-              sx={{ 
+            <Typography
+              variant="h6"
+              sx={{
                 fontWeight: 700,
                 background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
                 backgroundClip: 'text',
