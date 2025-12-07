@@ -1,4 +1,11 @@
 import random
+import logging
+from io import BytesIO
+from typing import Optional
+
+import qrcode
+from django.conf import settings
+from django.core.files.base import ContentFile
 from django.db import models
 from django.db.models import Avg, QuerySet, Count
 from django_filters.rest_framework import DjangoFilterBackend
@@ -13,6 +20,8 @@ from rest_framework.serializers import BaseSerializer
 
 from ..models import AdsManager
 from ..serializers.screen_manager import AdsManagerSerializer, SummarySerializer
+
+logger = logging.getLogger(__name__)
 
 
 class AdsManagerViewSet(viewsets.ModelViewSet):
@@ -50,14 +59,31 @@ class AdsManagerViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer: BaseSerializer[AdsManager]) -> None:
         """
         Set the created_by field to the current user when creating a new ads manager.
+        If a link is provided, generate a QR code for it.
         """
-        serializer.save(created_by=self.request.user)
+        ads_manager = serializer.save(created_by=self.request.user)
+        
+        # Generate QR code if link is provided
+        if ads_manager.link:
+            try:
+                self._generate_qr_code(ads_manager)
+            except Exception as e:
+                logger.error(f"Error generating QR code during create for AdsManager {ads_manager.id}: {str(e)}")
 
     def perform_update(self, serializer: BaseSerializer[AdsManager]) -> None:
         """
         Set the updated_by field to the current user when updating an ads manager.
+        If a link is provided or changed, regenerate the QR code.
         """
-        serializer.save(updated_by=self.request.user)
+        old_link = serializer.instance.link
+        ads_manager = serializer.save(updated_by=self.request.user)
+        
+        # Regenerate QR code if link was added or changed
+        if ads_manager.link and (old_link != ads_manager.link or not ads_manager.qr_code):
+            try:
+                self._generate_qr_code(ads_manager)
+            except Exception as e:
+                logger.error(f"Error generating QR code during update for AdsManager {ads_manager.id}: {str(e)}")
 
     @action(detail=False, methods=["get"])
     def active(self, request: Request) -> Response:
@@ -427,3 +453,72 @@ class AdsManagerViewSet(viewsets.ModelViewSet):
             "region_multiplier": region_multiplier,
             "message": "Efficiency forecast generated based on selected region and district"
         })
+    
+    def _generate_qr_code(self, ads_manager: AdsManager) -> None:
+        """
+        Generate QR code for an ads manager.
+        
+        Args:
+            ads_manager: The AdsManager instance to generate QR code for.
+        """
+        if not ads_manager.link:
+            logger.warning(f"Cannot generate QR code for AdsManager {ads_manager.id}: no link provided")
+            return
+        
+        # Generate QR code URL
+        qr_url = f"{settings.BACKEND_URL}/api/v1/main/qr/{ads_manager.id}/"
+        
+        # Create QR code
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(qr_url)
+        qr.make(fit=True)
+        
+        # Generate image
+        img = qr.make_image(fill_color="black", back_color="white")
+        
+        # Save to BytesIO
+        buffer = BytesIO()
+        img.save(buffer, format='PNG')
+        buffer.seek(0)
+        
+        # Save to model
+        filename = f"qr_code_{ads_manager.id}.png"
+        ads_manager.qr_code.save(filename, ContentFile(buffer.read()), save=True)
+        
+        logger.info(f"QR code generated for AdsManager {ads_manager.id}")
+    
+    @action(detail=True, methods=["post"])
+    def generate_qr_code(self, request: Request, pk: str | None = None) -> Response:
+        """
+        Generate QR code for an ads manager.
+        POST /api/v1/main/ads-managers/{id}/generate_qr_code/
+        
+        The QR code will contain a URL to /qr/<ad_id>/ which will redirect
+        to the original link and increment the visit counter.
+        """
+        ads_manager = self.get_object()
+        
+        if not ads_manager.link:
+            return Response(
+                {"error": "Cannot generate QR code: no link provided for this ad"},
+                status=400
+            )
+        
+        try:
+            self._generate_qr_code(ads_manager)
+            serializer = self.get_serializer(ads_manager)
+            return Response({
+                "message": "QR code generated successfully",
+                "data": serializer.data
+            })
+        except Exception as e:
+            logger.error(f"Error generating QR code for AdsManager {ads_manager.id}: {str(e)}")
+            return Response(
+                {"error": f"Failed to generate QR code: {str(e)}"},
+                status=500
+            )

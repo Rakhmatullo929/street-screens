@@ -179,6 +179,9 @@ class AdsManager(BaseModel):
     meta_schedule_slots = models.IntegerField(default=0)
     meta_schedule_coverage = models.CharField(max_length=10, blank=True, null=True)
     meta_duration_days = models.IntegerField(default=0)
+    link = models.URLField(blank=True, null=True)
+    involve_count = models.IntegerField(default=0)
+    qr_code = models.ImageField(upload_to="qr_codes", blank=True, null=True)
 
     ACTIVE = "active"
     PAUSED = "paused"

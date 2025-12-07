@@ -156,6 +156,9 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+# Backend URL for QR code generation
+BACKEND_URL = os.getenv("BACKEND_URL", "street-screens.vercel.app")
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

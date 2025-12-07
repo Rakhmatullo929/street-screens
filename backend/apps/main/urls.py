@@ -8,6 +8,7 @@ from .views.videos import AdsManagerVideoViewSet
 from .views.ads_manager import AdsManagerViewSet
 from .views.regions import RegionViewSet
 from .views.video_serve import ScreenVideoView, VideoServeView, VideoAnalyticsView
+from .views.qr_redirect import QRCodeRedirectView
 
 router = DefaultRouter()
 router.register(r'screen-managers', ScreenManagerViewSet, basename='screen-manager')
@@ -22,6 +23,7 @@ urlpatterns = [
     path('ads-videos/<int:pk>/serve/', VideoServeView.as_view(), name='ads-video-serve'),
     path('ads-videos/<int:pk>/track/', VideoAnalyticsView.as_view(), name='ads-video-analytics'),
     path('screen-videos/<int:pk>/', ScreenVideoView.as_view(), name='screen-videos-list'),
+    path('qr/<int:ad_id>/', QRCodeRedirectView.as_view(), name='qr-redirect'),
     path("interests/", InterestListCreateView.as_view(), name="interest-list-create"),
     path("interests/<uuid:pk>/", InterestDetailView.as_view(), name="interest-detail"),
     path("venue-types/", VenueTypeListCreateView.as_view(), name="venue-type-list-create"),
