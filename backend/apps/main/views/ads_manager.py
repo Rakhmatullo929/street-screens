@@ -456,7 +456,10 @@ class AdsManagerViewSet(viewsets.ModelViewSet):
     
     def _generate_qr_code(self, ads_manager: AdsManager) -> None:
         """
-        Generate QR code for an ads manager.
+        Generate a stylized QR code for an ads manager.
+        
+        Creates a QR code with rounded borders and semi-transparent matte background,
+        optimized for overlay on video content.
         
         Args:
             ads_manager: The AdsManager instance to generate QR code for.
@@ -465,32 +468,93 @@ class AdsManagerViewSet(viewsets.ModelViewSet):
             logger.warning(f"Cannot generate QR code for AdsManager {ads_manager.id}: no link provided")
             return
         
+        from PIL import Image, ImageDraw
+        
         # Generate QR code URL
         qr_url = f"{settings.BACKEND_URL}/api/v1/main/qr/{ads_manager.id}/"
         
-        # Create QR code
+        # Create QR code with higher error correction for better readability
         qr = qrcode.QRCode(
             version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=10,
-            border=4,
+            error_correction=qrcode.constants.ERROR_CORRECT_H,  # Higher error correction
+            box_size=20,  # Larger boxes for better rounded corner effect
+            border=2,
         )
         qr.add_data(qr_url)
         qr.make(fit=True)
         
-        # Generate image
-        img = qr.make_image(fill_color="black", back_color="white")
+        # Generate base QR code image
+        base_img = qr.make_image(fill_color="black", back_color="white")
+        
+        # Convert to RGBA for transparency support
+        base_img = base_img.convert("RGBA")
+        
+        # Create new image with semi-transparent matte background
+        width, height = base_img.size
+        
+        # Add padding for better visual appearance
+        padding = 40
+        new_width = width + (padding * 2)
+        new_height = height + (padding * 2)
+        
+        # Create new image with semi-transparent white background
+        # RGBA: (R, G, B, Alpha) - Alpha 0=transparent, 255=opaque
+        styled_img = Image.new('RGBA', (new_width, new_height), (255, 255, 255, 0))
+        
+        # Draw rounded rectangle background (matte semi-transparent)
+        draw = ImageDraw.Draw(styled_img)
+        corner_radius = 30
+        
+        # Semi-transparent matte white background (85% opacity)
+        background_color = (250, 250, 250, 217)  # Soft white with 85% opacity
+        
+        # Draw rounded rectangle
+        draw.rounded_rectangle(
+            [(0, 0), (new_width, new_height)],
+            radius=corner_radius,
+            fill=background_color
+        )
+        
+        # Process QR code to add rounded corners to modules
+        qr_data = base_img.load()
+        module_size = 20  # Same as box_size
+        corner_radius_module = 6  # Rounded corners for individual modules
+        
+        # Create a new image for the QR code with rounded modules
+        qr_with_rounded = Image.new('RGBA', base_img.size, (255, 255, 255, 0))
+        draw_qr = ImageDraw.Draw(qr_with_rounded)
+        
+        # Matte dark color for QR modules (softer than pure black, 95% opacity)
+        module_color = (40, 40, 45, 242)  # Dark charcoal with high opacity
+        
+        # Draw each QR module with rounded corners
+        for y in range(0, height, module_size):
+            for x in range(0, width, module_size):
+                # Check if this module should be filled (black in original)
+                try:
+                    if qr_data[x, y] == (0, 0, 0, 255):  # Black module
+                        # Draw rounded rectangle for this module
+                        draw_qr.rounded_rectangle(
+                            [(x, y), (x + module_size - 2, y + module_size - 2)],
+                            radius=corner_radius_module,
+                            fill=module_color
+                        )
+                except IndexError:
+                    pass
+        
+        # Paste the rounded QR code onto the background
+        styled_img.paste(qr_with_rounded, (padding, padding), qr_with_rounded)
         
         # Save to BytesIO
         buffer = BytesIO()
-        img.save(buffer, format='PNG')
+        styled_img.save(buffer, format='PNG', optimize=True)
         buffer.seek(0)
         
         # Save to model
         filename = f"qr_code_{ads_manager.id}.png"
         ads_manager.qr_code.save(filename, ContentFile(buffer.read()), save=True)
         
-        logger.info(f"QR code generated for AdsManager {ads_manager.id}")
+        logger.info(f"Stylized QR code with rounded borders generated for AdsManager {ads_manager.id}")
     
     @action(detail=True, methods=["post"])
     def generate_qr_code(self, request: Request, pk: str | None = None) -> Response:

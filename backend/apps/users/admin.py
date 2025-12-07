@@ -47,13 +47,16 @@ class UserAdmin(BaseUserAdmin):
     model = User
 
     ordering = ("email",)
-    list_display = ("email", "first_name", "last_name", "is_staff", "is_active")
-    list_filter = ("is_staff", "is_superuser", "is_active", "groups")
-    search_fields = ("email", "first_name", "last_name")
+    list_display = ("email", "first_name", "last_name", "type_user_display", "phone", "is_staff", "is_active", "date_joined")
+    list_filter = ("is_staff", "is_superuser", "is_active", "type_user", "groups", "date_joined")
+    search_fields = ("email", "first_name", "last_name", "phone")
+    readonly_fields = ("last_login", "date_joined")
+    list_per_page = 50
 
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        ("Personal info", {"fields": ("first_name", "last_name")}),
+        ("Personal info", {"fields": ("first_name", "last_name", "phone")}),
+        ("User Type", {"fields": ("type_user", "additional_info")}),
         ("Permissions", {"fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions")}),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
@@ -63,10 +66,29 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": ("email", "password1", "password2", "is_active", "is_staff", "is_superuser", "groups"),
+                "fields": (
+                    "email",
+                    "password1",
+                    "password2",
+                    "first_name",
+                    "last_name",
+                    "phone",
+                    "type_user",
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups"
+                ),
             },
         ),
     )
+    
+    def type_user_display(self, obj):
+        """Display user type with nice formatting."""
+        return obj.get_type_user_display()
+    
+    type_user_display.short_description = "User Type"  # type: ignore
+    type_user_display.admin_order_field = "type_user"  # type: ignore
 
 
 admin.site.register(User, UserAdmin)

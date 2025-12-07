@@ -446,11 +446,15 @@ class AdsManagerSerializer(serializers.ModelSerializer):
 class AdsManagerVideoSerializer(serializers.ModelSerializer):
     """
     Serializer for AdsManagerVideo model.
-    Handles video data for ads campaigns.
+    Handles video data for ads campaigns with QR code information.
     """
     ads_manager_name = serializers.CharField(source='ads_manager.campaign_name', read_only=True)
     ads_manager_status = serializers.CharField(source='ads_manager.status', read_only=True)
     video_url = serializers.SerializerMethodField()
+    qr_code = serializers.SerializerMethodField()
+    qr_code_url = serializers.SerializerMethodField()
+    ad_link = serializers.CharField(source='ads_manager.link', read_only=True)
+    involve_count = serializers.IntegerField(source='ads_manager.involve_count', read_only=True)
     
     class Meta:
         model = AdsManagerVideo
@@ -465,6 +469,10 @@ class AdsManagerVideoSerializer(serializers.ModelSerializer):
             "description",
             "duration",
             "file_size",
+            "qr_code",
+            "qr_code_url",
+            "ad_link",
+            "involve_count",
             "created_at",
             "updated_at",
             "created_by",
@@ -476,6 +484,32 @@ class AdsManagerVideoSerializer(serializers.ModelSerializer):
         """Get the URL for serving the video."""
         if obj.video:
             return f"/api/v1/main/ads-videos/{obj.id}/serve/"
+        return None
+    
+    def get_qr_code(self, obj):
+        """
+        Get the QR code image URL from the associated ads manager.
+        
+        Returns:
+            str: URL to the QR code image, or None if not available
+        """
+        if obj.ads_manager and obj.ads_manager.qr_code:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.ads_manager.qr_code.url)
+            return obj.ads_manager.qr_code.url
+        return None
+    
+    def get_qr_code_url(self, obj):
+        """
+        Get the QR code redirect URL (the URL that the QR code points to).
+        
+        Returns:
+            str: QR code redirect URL, or None if not available
+        """
+        if obj.ads_manager:
+            from django.conf import settings
+            return f"{settings.BACKEND_URL}/api/v1/main/qr/{obj.ads_manager.id}/"
         return None
     
     def create(self, validated_data: Dict[str, Any]) -> AdsManagerVideo:
