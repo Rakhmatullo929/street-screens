@@ -47,7 +47,12 @@ export default function ServePage() {
         );
     }
 
-    const src = items[playingVideoIndex]?.video;
+    const currentItem = items[playingVideoIndex];
+    const src = currentItem?.video;
+
+    const qrSrc =
+        currentItem?.qr_code ||
+        (currentItem?.qr_code_url ? `https://${currentItem.qr_code_url}` : null);
 
     return (
         <div
@@ -55,29 +60,67 @@ export default function ServePage() {
                 position: 'fixed',
                 inset: 0,
                 background: 'black',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
             }}
         >
-            <video
-                ref={videoRef}
-                key={src}
-                src={src}
-                onEnded={handleEnded}
-                autoPlay
-                controls
-                muted
-                playsInline
+            <div
                 style={{
+                    position: 'relative',
                     width: '100vw',
                     height: '100vh',
-                    objectFit: 'contain',
-                    display: 'block',
-                    background: 'black',
                 }}
-                controlsList="nodownload"
-                disablePictureInPicture
             >
-                <track default kind="captions" srcLang="uz" src="ads"/>
-            </video>
+                <video
+                    ref={videoRef}
+                    key={src}
+                    src={src}
+                    onEnded={handleEnded}
+                    autoPlay
+                    controls
+                    muted
+                    playsInline
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        display: 'block',
+                        background: 'black',
+                    }}
+                    controlsList="nodownload"
+                    disablePictureInPicture
+                >
+                    <track default kind="captions" srcLang="uz" src="ads"/>
+                </video>
+
+                {qrSrc && (
+                    <a
+                        href={currentItem?.ad_link || '#'}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                            position: 'absolute',
+                            top: 24,
+                            right: 24,
+                        }}
+                    >
+                        <img
+                            src={qrSrc}
+                            alt="QR code"
+                            style={{
+                                width: 120,
+                                height: 120,
+                                objectFit: 'contain',
+                                borderRadius: 8,
+                                background: 'white',
+                                padding: 8,
+                                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                            }}
+                        />
+                    </a>
+                )}
+            </div>
         </div>
     );
 }
