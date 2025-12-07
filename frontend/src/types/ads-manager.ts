@@ -25,6 +25,7 @@ export interface IAdsManager {
   id: number;
   campaign_name: string;
   link?: string;
+  involve_count?: number;
   budget: number;
   currency: string;
   start_date: string;
