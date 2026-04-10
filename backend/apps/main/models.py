@@ -277,3 +277,75 @@ class VideoAnalytics(BaseModel):
         verbose_name = "Video Analytics"
         verbose_name_plural = "Video Analytics"
         ordering = ("-created_at",)
+
+
+class AudienceImpression(models.Model):
+    """
+    Aggregated, privacy-preserving audience metric produced by the edge CV agent.
+
+    Each row = one observed face in the camera frame during a short sampling window.
+    No images or biometric vectors ever reach the server — only counters and buckets.
+    """
+
+    AGE_BUCKETS = [
+        ("0-17", "0-17"),
+        ("18-24", "18-24"),
+        ("25-34", "25-34"),
+        ("35-44", "35-44"),
+        ("45-54", "45-54"),
+        ("55+", "55+"),
+        ("unknown", "Unknown"),
+    ]
+
+    GENDERS = [
+        ("male", "Male"),
+        ("female", "Female"),
+        ("unknown", "Unknown"),
+    ]
+
+    EMOTIONS = [
+        ("neutral", "Neutral"),
+        ("happy", "Happy"),
+        ("sad", "Sad"),
+        ("surprised", "Surprised"),
+        ("angry", "Angry"),
+        ("unknown", "Unknown"),
+    ]
+
+    screen = models.ForeignKey(
+        "main.ScreenManager",
+        on_delete=models.CASCADE,
+        related_name="audience_impressions",
+    )
+    ads_manager = models.ForeignKey(
+        "main.AdsManager",
+        on_delete=models.SET_NULL,
+        related_name="audience_impressions",
+        null=True,
+        blank=True,
+    )
+    video = models.ForeignKey(
+        "main.AdsManagerVideo",
+        on_delete=models.SET_NULL,
+        related_name="audience_impressions",
+        null=True,
+        blank=True,
+    )
+    timestamp = models.DateTimeField(db_index=True)
+    face_count = models.PositiveIntegerField(default=1)
+    avg_dwell_ms = models.PositiveIntegerField(default=0)
+    age_bucket = models.CharField(max_length=16, choices=AGE_BUCKETS, default="unknown")
+    gender = models.CharField(max_length=8, choices=GENDERS, default="unknown")
+    emotion = models.CharField(max_length=16, choices=EMOTIONS, default="unknown", blank=True)
+    attention_score = models.FloatField(default=0.0, help_text="0..1, how likely the face looked at the screen")
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+
+    class Meta:
+        db_table = "main_audience_impression"
+        verbose_name = "Audience Impression"
+        verbose_name_plural = "Audience Impressions"
+        ordering = ("-timestamp",)
+        indexes = [
+            models.Index(fields=["screen", "timestamp"]),
+            models.Index(fields=["ads_manager", "timestamp"]),
+        ]

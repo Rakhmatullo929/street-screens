@@ -1,0 +1,7 @@
+opencv-python>=4.8.0
+numpy>=1.24.0
+requests>=2.31.0
+# Face detection + age/gender (heavy — install with extra care on mac ARM)
+ultralytics>=8.1.0
+insightface>=0.7.3
+onnxruntime>=1.17.0

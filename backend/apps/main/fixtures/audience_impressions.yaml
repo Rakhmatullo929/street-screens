@@ -1,0 +1,449 @@
+- model: main.AudienceImpression
+  pk: 1
+  fields:
+    screen: 1
+    ads_manager: 1
+    video: 1
+    timestamp: 2026-04-08T09:15:00+00
+    created_at: 2026-04-08T09:15:00+00
+    face_count: 3
+    avg_dwell_ms: 4200
+    age_bucket: "25-34"
+    gender: "male"
+    emotion: "neutral"
+    attention_score: 0.72
+
+- model: main.AudienceImpression
+  pk: 2
+  fields:
+    screen: 1
+    ads_manager: 1
+    video: 1
+    timestamp: 2026-04-08T09:15:00+00
+    created_at: 2026-04-08T09:15:00+00
+    face_count: 2
+    avg_dwell_ms: 3100
+    age_bucket: "18-24"
+    gender: "female"
+    emotion: "happy"
+    attention_score: 0.85
+
+- model: main.AudienceImpression
+  pk: 3
+  fields:
+    screen: 1
+    ads_manager: 1
+    video: 2
+    timestamp: 2026-04-08T12:40:00+00
+    created_at: 2026-04-08T12:40:00+00
+    face_count: 5
+    avg_dwell_ms: 5600
+    age_bucket: "35-44"
+    gender: "male"
+    emotion: "neutral"
+    attention_score: 0.64
+
+- model: main.AudienceImpression
+  pk: 4
+  fields:
+    screen: 1
+    ads_manager: 2
+    video: 3
+    timestamp: 2026-04-08T14:20:00+00
+    created_at: 2026-04-08T14:20:00+00
+    face_count: 4
+    avg_dwell_ms: 2800
+    age_bucket: "25-34"
+    gender: "female"
+    emotion: "surprised"
+    attention_score: 0.78
+
+- model: main.AudienceImpression
+  pk: 5
+  fields:
+    screen: 1
+    ads_manager: 2
+    video: 3
+    timestamp: 2026-04-08T18:05:00+00
+    created_at: 2026-04-08T18:05:00+00
+    face_count: 6
+    avg_dwell_ms: 6100
+    age_bucket: "18-24"
+    gender: "male"
+    emotion: "happy"
+    attention_score: 0.91
+
+- model: main.AudienceImpression
+  pk: 6
+  fields:
+    screen: 2
+    ads_manager: 1
+    video: 1
+    timestamp: 2026-04-08T10:30:00+00
+    created_at: 2026-04-08T10:30:00+00
+    face_count: 8
+    avg_dwell_ms: 7200
+    age_bucket: "45-54"
+    gender: "female"
+    emotion: "neutral"
+    attention_score: 0.55
+
+- model: main.AudienceImpression
+  pk: 7
+  fields:
+    screen: 2
+    ads_manager: 3
+    video: 5
+    timestamp: 2026-04-08T13:45:00+00
+    created_at: 2026-04-08T13:45:00+00
+    face_count: 3
+    avg_dwell_ms: 3900
+    age_bucket: "25-34"
+    gender: "male"
+    emotion: "happy"
+    attention_score: 0.82
+
+- model: main.AudienceImpression
+  pk: 8
+  fields:
+    screen: 2
+    ads_manager: 3
+    video: 5
+    timestamp: 2026-04-08T16:10:00+00
+    created_at: 2026-04-08T16:10:00+00
+    face_count: 2
+    avg_dwell_ms: 2400
+    age_bucket: "55+"
+    gender: "male"
+    emotion: "neutral"
+    attention_score: 0.48
+
+- model: main.AudienceImpression
+  pk: 9
+  fields:
+    screen: 3
+    ads_manager: 4
+    video: 7
+    timestamp: 2026-04-08T11:00:00+00
+    created_at: 2026-04-08T11:00:00+00
+    face_count: 4
+    avg_dwell_ms: 4500
+    age_bucket: "18-24"
+    gender: "female"
+    emotion: "happy"
+    attention_score: 0.88
+
+- model: main.AudienceImpression
+  pk: 10
+  fields:
+    screen: 3
+    ads_manager: 4
+    video: 7
+    timestamp: 2026-04-08T15:30:00+00
+    created_at: 2026-04-08T15:30:00+00
+    face_count: 5
+    avg_dwell_ms: 5200
+    age_bucket: "25-34"
+    gender: "male"
+    emotion: "surprised"
+    attention_score: 0.74
+
+- model: main.AudienceImpression
+  pk: 11
+  fields:
+    screen: 4
+    ads_manager: 2
+    video: 4
+    timestamp: 2026-04-09T08:50:00+00
+    created_at: 2026-04-09T08:50:00+00
+    face_count: 2
+    avg_dwell_ms: 3300
+    age_bucket: "35-44"
+    gender: "female"
+    emotion: "neutral"
+    attention_score: 0.61
+
+- model: main.AudienceImpression
+  pk: 12
+  fields:
+    screen: 4
+    ads_manager: 2
+    video: 4
+    timestamp: 2026-04-09T12:25:00+00
+    created_at: 2026-04-09T12:25:00+00
+    face_count: 7
+    avg_dwell_ms: 6800
+    age_bucket: "25-34"
+    gender: "male"
+    emotion: "happy"
+    attention_score: 0.89
+
+- model: main.AudienceImpression
+  pk: 13
+  fields:
+    screen: 4
+    ads_manager: 5
+    video: 9
+    timestamp: 2026-04-09T17:15:00+00
+    created_at: 2026-04-09T17:15:00+00
+    face_count: 3
+    avg_dwell_ms: 4100
+    age_bucket: "18-24"
+    gender: "female"
+    emotion: "surprised"
+    attention_score: 0.77
+
+- model: main.AudienceImpression
+  pk: 14
+  fields:
+    screen: 5
+    ads_manager: 5
+    video: 9
+    timestamp: 2026-04-09T09:40:00+00
+    created_at: 2026-04-09T09:40:00+00
+    face_count: 6
+    avg_dwell_ms: 5900
+    age_bucket: "25-34"
+    gender: "male"
+    emotion: "neutral"
+    attention_score: 0.70
+
+- model: main.AudienceImpression
+  pk: 15
+  fields:
+    screen: 5
+    ads_manager: 6
+    video: 11
+    timestamp: 2026-04-09T14:00:00+00
+    created_at: 2026-04-09T14:00:00+00
+    face_count: 4
+    avg_dwell_ms: 4700
+    age_bucket: "45-54"
+    gender: "female"
+    emotion: "happy"
+    attention_score: 0.66
+
+- model: main.AudienceImpression
+  pk: 16
+  fields:
+    screen: 5
+    ads_manager: 6
+    video: 11
+    timestamp: 2026-04-09T19:20:00+00
+    created_at: 2026-04-09T19:20:00+00
+    face_count: 5
+    avg_dwell_ms: 5300
+    age_bucket: "18-24"
+    gender: "male"
+    emotion: "happy"
+    attention_score: 0.93
+
+- model: main.AudienceImpression
+  pk: 17
+  fields:
+    screen: 6
+    ads_manager: 7
+    video: 13
+    timestamp: 2026-04-09T10:10:00+00
+    created_at: 2026-04-09T10:10:00+00
+    face_count: 2
+    avg_dwell_ms: 2900
+    age_bucket: "0-17"
+    gender: "unknown"
+    emotion: "happy"
+    attention_score: 0.58
+
+- model: main.AudienceImpression
+  pk: 18
+  fields:
+    screen: 6
+    ads_manager: 7
+    video: 13
+    timestamp: 2026-04-09T13:35:00+00
+    created_at: 2026-04-09T13:35:00+00
+    face_count: 9
+    avg_dwell_ms: 7500
+    age_bucket: "25-34"
+    gender: "female"
+    emotion: "neutral"
+    attention_score: 0.81
+
+- model: main.AudienceImpression
+  pk: 19
+  fields:
+    screen: 7
+    ads_manager: 8
+    video: 15
+    timestamp: 2026-04-09T11:55:00+00
+    created_at: 2026-04-09T11:55:00+00
+    face_count: 3
+    avg_dwell_ms: 3700
+    age_bucket: "35-44"
+    gender: "male"
+    emotion: "neutral"
+    attention_score: 0.69
+
+- model: main.AudienceImpression
+  pk: 20
+  fields:
+    screen: 7
+    ads_manager: 8
+    video: 15
+    timestamp: 2026-04-09T16:40:00+00
+    created_at: 2026-04-09T16:40:00+00
+    face_count: 4
+    avg_dwell_ms: 4400
+    age_bucket: "25-34"
+    gender: "female"
+    emotion: "surprised"
+    attention_score: 0.75
+
+- model: main.AudienceImpression
+  pk: 21
+  fields:
+    screen: 8
+    ads_manager: 9
+    video: 17
+    timestamp: 2026-04-10T08:20:00+00
+    created_at: 2026-04-10T08:20:00+00
+    face_count: 5
+    avg_dwell_ms: 5100
+    age_bucket: "18-24"
+    gender: "male"
+    emotion: "happy"
+    attention_score: 0.87
+
+- model: main.AudienceImpression
+  pk: 22
+  fields:
+    screen: 8
+    ads_manager: 9
+    video: 17
+    timestamp: 2026-04-10T11:45:00+00
+    created_at: 2026-04-10T11:45:00+00
+    face_count: 6
+    avg_dwell_ms: 5800
+    age_bucket: "25-34"
+    gender: "female"
+    emotion: "neutral"
+    attention_score: 0.73
+
+- model: main.AudienceImpression
+  pk: 23
+  fields:
+    screen: 8
+    ads_manager: 10
+    video: 19
+    timestamp: 2026-04-10T15:05:00+00
+    created_at: 2026-04-10T15:05:00+00
+    face_count: 4
+    avg_dwell_ms: 4600
+    age_bucket: "35-44"
+    gender: "male"
+    emotion: "angry"
+    attention_score: 0.42
+
+- model: main.AudienceImpression
+  pk: 24
+  fields:
+    screen: 9
+    ads_manager: 10
+    video: 19
+    timestamp: 2026-04-10T09:30:00+00
+    created_at: 2026-04-10T09:30:00+00
+    face_count: 3
+    avg_dwell_ms: 3500
+    age_bucket: "55+"
+    gender: "female"
+    emotion: "neutral"
+    attention_score: 0.51
+
+- model: main.AudienceImpression
+  pk: 25
+  fields:
+    screen: 9
+    ads_manager: 1
+    video: 2
+    timestamp: 2026-04-10T12:15:00+00
+    created_at: 2026-04-10T12:15:00+00
+    face_count: 7
+    avg_dwell_ms: 6400
+    age_bucket: "25-34"
+    gender: "male"
+    emotion: "happy"
+    attention_score: 0.90
+
+- model: main.AudienceImpression
+  pk: 26
+  fields:
+    screen: 9
+    ads_manager: 3
+    video: 6
+    timestamp: 2026-04-10T17:50:00+00
+    created_at: 2026-04-10T17:50:00+00
+    face_count: 5
+    avg_dwell_ms: 5000
+    age_bucket: "18-24"
+    gender: "female"
+    emotion: "surprised"
+    attention_score: 0.83
+
+- model: main.AudienceImpression
+  pk: 27
+  fields:
+    screen: 10
+    ads_manager: 4
+    video: 8
+    timestamp: 2026-04-10T10:05:00+00
+    created_at: 2026-04-10T10:05:00+00
+    face_count: 4
+    avg_dwell_ms: 4200
+    age_bucket: "45-54"
+    gender: "male"
+    emotion: "neutral"
+    attention_score: 0.62
+
+- model: main.AudienceImpression
+  pk: 28
+  fields:
+    screen: 10
+    ads_manager: 5
+    video: 10
+    timestamp: 2026-04-10T13:20:00+00
+    created_at: 2026-04-10T13:20:00+00
+    face_count: 8
+    avg_dwell_ms: 7000
+    age_bucket: "25-34"
+    gender: "female"
+    emotion: "happy"
+    attention_score: 0.86
+
+- model: main.AudienceImpression
+  pk: 29
+  fields:
+    screen: 10
+    ads_manager: 6
+    video: 12
+    timestamp: 2026-04-10T16:35:00+00
+    created_at: 2026-04-10T16:35:00+00
+    face_count: 6
+    avg_dwell_ms: 5700
+    age_bucket: "18-24"
+    gender: "male"
+    emotion: "happy"
+    attention_score: 0.88
+
+- model: main.AudienceImpression
+  pk: 30
+  fields:
+    screen: 10
+    ads_manager: null
+    video: null
+    timestamp: 2026-04-10T19:00:00+00
+    created_at: 2026-04-10T19:00:00+00
+    face_count: 2
+    avg_dwell_ms: 1800
+    age_bucket: "unknown"
+    gender: "unknown"
+    emotion: "unknown"
+    attention_score: 0.35

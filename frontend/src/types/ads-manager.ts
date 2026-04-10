@@ -170,6 +170,31 @@ export interface IAdsManagerVenueTypesResponse {
   total_venue_types: number;
 }
 
+export interface IAudienceHourlyPoint {
+  hour: string;
+  count: number;
+}
+
+export interface IAudienceBreakdown {
+  total_impressions: number;
+  unique_viewers: number;
+  avg_dwell_seconds: number;
+  avg_attention: number;
+  by_age: Record<string, number>;
+  by_gender: Record<string, number>;
+  by_emotion: Record<string, number>;
+  hourly: IAudienceHourlyPoint[];
+  last_updated: string | null;
+}
+
+export interface IAudienceLive {
+  window_seconds: number;
+  total_faces: number;
+  samples: number;
+  avg_attention: number;
+  last_seen: string | null;
+}
+
 export interface ITransformedAdsManager {
   id: string;
   name: string;

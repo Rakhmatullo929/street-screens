@@ -40,6 +40,7 @@ urlpatterns = [
             [
                 path("main/", include(("main.urls", "main"), namespace="main")),
                 path("users/", include(("users.urls", "users"), namespace="users")),
+                path("ml/", include(("ml.urls", "ml"), namespace="ml")),
             ]
         ),
     ),

@@ -23,6 +23,8 @@ import {ScheduleVisualization} from 'src/components/schedule';
 import {WeeklySchedule} from 'src/components/schedule/weekly-schedule-calendar';
 import {useSnackbar} from 'src/components/snackbar';
 
+import AudienceAnalytics from 'src/sections/campaigns/audience-analytics';
+
 import {getStatusColor, convertBackendScheduleToCalendar} from 'src/constants/dooh-data';
 
 import {paths} from 'src/routes/paths';
@@ -771,47 +773,7 @@ export default function CampaignDetailsView() {
                 )}
 
                 {}
-                <Card
-                    sx={{
-                        p: 3,
-                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 250, 250, 0.9) 100%)',
-                        border: '1px solid',
-                        borderColor: 'divider',
-                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
-                    }}
-                >
-                    <Stack spacing={3}>
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                fontWeight: 700,
-                                background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
-                                backgroundClip: 'text',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                            }}
-                        >
-                            Performance
-                        </Typography>
-                        <Box
-                            sx={{
-                                p: 5,
-                                textAlign: 'center',
-                                bgcolor: 'background.neutral',
-                                borderRadius: 2,
-                            }}
-                        >
-                            <Iconify
-                                icon="solar:chart-2-bold-duotone"
-                                width={48}
-                                sx={{color: 'text.disabled', mb: 2}}
-                            />
-                            <Typography variant="body2" color="text.secondary">
-                                Performance chart will be here
-                            </Typography>
-                        </Box>
-                    </Stack>
-                </Card>
+                <AudienceAnalytics campaignId={campaign.id}/>
             </Stack>
         </Container>
     );

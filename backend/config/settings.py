@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # Apps
     "main",
     "users",
+    "ml",
 ]
 
 MIDDLEWARE = [
@@ -90,9 +91,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB", "postres"),
-        "USER": os.getenv("POSTGRES_USER", "postres"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "password"),
+        "NAME": os.getenv("POSTGRES_DB", "postgres"),
+        "USER": os.getenv("POSTGRES_USER", "postgres"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
         "HOST": os.getenv("POSTGRES_HOST", "localhost"),
         "PORT": os.getenv("POSTGRES_PORT", 5432),
     }

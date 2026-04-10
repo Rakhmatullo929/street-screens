@@ -114,4 +114,10 @@ export const API_ENDPOINTS = {
   screenVideos: {
     list: (screenId: string | number) => `main/screen-videos/${screenId}/`,
   },
+  ml: {
+    audienceIngest: 'ml/audience/ingest/',
+    audienceLive: 'ml/audience/live/',
+    audienceByCampaign: (id: string | number) => `ml/audience/campaign/${id}/`,
+    audienceByScreen: (id: string | number) => `ml/audience/screen/${id}/`,
+  },
 };
